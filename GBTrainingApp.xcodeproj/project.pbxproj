@@ -9,13 +9,25 @@
 /* Begin PBXBuildFile section */
 		E1D3D2C1252F07C8002EF01E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D2C0252F07C8002EF01E /* AppDelegate.swift */; };
 		E1D3D2C3252F07C8002EF01E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D2C2252F07C8002EF01E /* SceneDelegate.swift */; };
-		E1D3D2C5252F07C8002EF01E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D2C4252F07C8002EF01E /* ViewController.swift */; };
-		E1D3D2C8252F07C8002EF01E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1D3D2C6252F07C8002EF01E /* Main.storyboard */; };
 		E1D3D2CB252F07C8002EF01E /* GBTrainingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D2C9252F07C8002EF01E /* GBTrainingApp.xcdatamodeld */; };
 		E1D3D2CD252F07CA002EF01E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1D3D2CC252F07CA002EF01E /* Assets.xcassets */; };
 		E1D3D2D0252F07CA002EF01E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1D3D2CE252F07CA002EF01E /* LaunchScreen.storyboard */; };
 		E1D3D2DB252F07CA002EF01E /* GBTrainingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D2DA252F07CA002EF01E /* GBTrainingAppTests.swift */; };
 		E1D3D2E6252F07CA002EF01E /* GBTrainingAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D2E5252F07CA002EF01E /* GBTrainingAppUITests.swift */; };
+		E1D3D305252F09EA002EF01E /* MainLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D304252F09EA002EF01E /* MainLoginVC.swift */; };
+		E1D3D30D252F0A14002EF01E /* GroupsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D309252F0A14002EF01E /* GroupsVC.swift */; };
+		E1D3D30E252F0A14002EF01E /* FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D30A252F0A14002EF01E /* FriendsVC.swift */; };
+		E1D3D30F252F0A14002EF01E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D30B252F0A14002EF01E /* TabBarController.swift */; };
+		E1D3D310252F0A14002EF01E /* NewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D30C252F0A14002EF01E /* NewsVC.swift */; };
+		E1D3D317252F0A25002EF01E /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D315252F0A25002EF01E /* FriendsView.swift */; };
+		E1D3D318252F0A25002EF01E /* MainLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D316252F0A25002EF01E /* MainLoginView.swift */; };
+		E1D3D31E252F0A3B002EF01E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D31D252F0A3B002EF01E /* NetworkManager.swift */; };
+		E1D3D325252F0A43002EF01E /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D323252F0A43002EF01E /* Session.swift */; };
+		E1D3D326252F0A43002EF01E /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D324252F0A43002EF01E /* ErrorMessage.swift */; };
+		E1D3D32F252F0A4A002EF01E /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D32C252F0A4A002EF01E /* FriendCell.swift */; };
+		E1D3D330252F0A4A002EF01E /* NameTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D32D252F0A4A002EF01E /* NameTitleLabel.swift */; };
+		E1D3D331252F0A4A002EF01E /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D32E252F0A4A002EF01E /* AvatarImageView.swift */; };
+		E1D3D337252F0A5C002EF01E /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D336252F0A5C002EF01E /* Friend.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +51,6 @@
 		E1D3D2BD252F07C8002EF01E /* GBTrainingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GBTrainingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1D3D2C0252F07C8002EF01E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1D3D2C2252F07C8002EF01E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E1D3D2C4252F07C8002EF01E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E1D3D2C7252F07C8002EF01E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E1D3D2CA252F07C8002EF01E /* GBTrainingApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GBTrainingApp.xcdatamodel; sourceTree = "<group>"; };
 		E1D3D2CC252F07CA002EF01E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1D3D2CF252F07CA002EF01E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +61,20 @@
 		E1D3D2E1252F07CA002EF01E /* GBTrainingAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GBTrainingAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1D3D2E5252F07CA002EF01E /* GBTrainingAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GBTrainingAppUITests.swift; sourceTree = "<group>"; };
 		E1D3D2E7252F07CA002EF01E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1D3D304252F09EA002EF01E /* MainLoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainLoginVC.swift; sourceTree = "<group>"; };
+		E1D3D309252F0A14002EF01E /* GroupsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsVC.swift; sourceTree = "<group>"; };
+		E1D3D30A252F0A14002EF01E /* FriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsVC.swift; sourceTree = "<group>"; };
+		E1D3D30B252F0A14002EF01E /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E1D3D30C252F0A14002EF01E /* NewsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsVC.swift; sourceTree = "<group>"; };
+		E1D3D315252F0A25002EF01E /* FriendsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		E1D3D316252F0A25002EF01E /* MainLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainLoginView.swift; sourceTree = "<group>"; };
+		E1D3D31D252F0A3B002EF01E /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		E1D3D323252F0A43002EF01E /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		E1D3D324252F0A43002EF01E /* ErrorMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
+		E1D3D32C252F0A4A002EF01E /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
+		E1D3D32D252F0A4A002EF01E /* NameTitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTitleLabel.swift; sourceTree = "<group>"; };
+		E1D3D32E252F0A4A002EF01E /* AvatarImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
+		E1D3D336252F0A5C002EF01E /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,14 +125,13 @@
 		E1D3D2BF252F07C8002EF01E /* GBTrainingApp */ = {
 			isa = PBXGroup;
 			children = (
-				E1D3D2C0252F07C8002EF01E /* AppDelegate.swift */,
-				E1D3D2C2252F07C8002EF01E /* SceneDelegate.swift */,
-				E1D3D2C4252F07C8002EF01E /* ViewController.swift */,
-				E1D3D2C6252F07C8002EF01E /* Main.storyboard */,
-				E1D3D2CC252F07CA002EF01E /* Assets.xcassets */,
-				E1D3D2CE252F07CA002EF01E /* LaunchScreen.storyboard */,
-				E1D3D2D1252F07CA002EF01E /* Info.plist */,
-				E1D3D2C9252F07C8002EF01E /* GBTrainingApp.xcdatamodeld */,
+				E1D3D335252F0A5C002EF01E /* Models */,
+				E1D3D32A252F0A4A002EF01E /* Custom Views */,
+				E1D3D322252F0A43002EF01E /* Utilities */,
+				E1D3D31C252F0A3B002EF01E /* Managers */,
+				E1D3D314252F0A25002EF01E /* Views */,
+				E1D3D303252F096F002EF01E /* Controllers */,
+				E1D3D2FC252F0939002EF01E /* Support */,
 			);
 			path = GBTrainingApp;
 			sourceTree = "<group>";
@@ -129,6 +152,83 @@
 				E1D3D2E7252F07CA002EF01E /* Info.plist */,
 			);
 			path = GBTrainingAppUITests;
+			sourceTree = "<group>";
+		};
+		E1D3D2FC252F0939002EF01E /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				E1D3D2C0252F07C8002EF01E /* AppDelegate.swift */,
+				E1D3D2C2252F07C8002EF01E /* SceneDelegate.swift */,
+				E1D3D2CE252F07CA002EF01E /* LaunchScreen.storyboard */,
+				E1D3D2D1252F07CA002EF01E /* Info.plist */,
+				E1D3D2CC252F07CA002EF01E /* Assets.xcassets */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		E1D3D303252F096F002EF01E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E1D3D304252F09EA002EF01E /* MainLoginVC.swift */,
+				E1D3D30A252F0A14002EF01E /* FriendsVC.swift */,
+				E1D3D309252F0A14002EF01E /* GroupsVC.swift */,
+				E1D3D30C252F0A14002EF01E /* NewsVC.swift */,
+				E1D3D30B252F0A14002EF01E /* TabBarController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E1D3D314252F0A25002EF01E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E1D3D315252F0A25002EF01E /* FriendsView.swift */,
+				E1D3D316252F0A25002EF01E /* MainLoginView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E1D3D31C252F0A3B002EF01E /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				E1D3D31D252F0A3B002EF01E /* NetworkManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		E1D3D322252F0A43002EF01E /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E1D3D323252F0A43002EF01E /* Session.swift */,
+				E1D3D324252F0A43002EF01E /* ErrorMessage.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E1D3D32A252F0A4A002EF01E /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				E1D3D32B252F0A4A002EF01E /* Cells */,
+				E1D3D32D252F0A4A002EF01E /* NameTitleLabel.swift */,
+				E1D3D32E252F0A4A002EF01E /* AvatarImageView.swift */,
+			);
+			path = "Custom Views";
+			sourceTree = "<group>";
+		};
+		E1D3D32B252F0A4A002EF01E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E1D3D32C252F0A4A002EF01E /* FriendCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		E1D3D335252F0A5C002EF01E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E1D3D336252F0A5C002EF01E /* Friend.swift */,
+				E1D3D2C9252F07C8002EF01E /* GBTrainingApp.xcdatamodeld */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,7 +336,6 @@
 			files = (
 				E1D3D2D0252F07CA002EF01E /* LaunchScreen.storyboard in Resources */,
 				E1D3D2CD252F07CA002EF01E /* Assets.xcassets in Resources */,
-				E1D3D2C8252F07C8002EF01E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,9 +361,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1D3D2CB252F07C8002EF01E /* GBTrainingApp.xcdatamodeld in Sources */,
-				E1D3D2C5252F07C8002EF01E /* ViewController.swift in Sources */,
+				E1D3D318252F0A25002EF01E /* MainLoginView.swift in Sources */,
 				E1D3D2C1252F07C8002EF01E /* AppDelegate.swift in Sources */,
+				E1D3D30E252F0A14002EF01E /* FriendsVC.swift in Sources */,
+				E1D3D31E252F0A3B002EF01E /* NetworkManager.swift in Sources */,
+				E1D3D317252F0A25002EF01E /* FriendsView.swift in Sources */,
+				E1D3D326252F0A43002EF01E /* ErrorMessage.swift in Sources */,
+				E1D3D32F252F0A4A002EF01E /* FriendCell.swift in Sources */,
 				E1D3D2C3252F07C8002EF01E /* SceneDelegate.swift in Sources */,
+				E1D3D330252F0A4A002EF01E /* NameTitleLabel.swift in Sources */,
+				E1D3D30F252F0A14002EF01E /* TabBarController.swift in Sources */,
+				E1D3D325252F0A43002EF01E /* Session.swift in Sources */,
+				E1D3D310252F0A14002EF01E /* NewsVC.swift in Sources */,
+				E1D3D331252F0A4A002EF01E /* AvatarImageView.swift in Sources */,
+				E1D3D337252F0A5C002EF01E /* Friend.swift in Sources */,
+				E1D3D305252F09EA002EF01E /* MainLoginVC.swift in Sources */,
+				E1D3D30D252F0A14002EF01E /* GroupsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,14 +412,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E1D3D2C6252F07C8002EF01E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E1D3D2C7252F07C8002EF01E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E1D3D2CE252F07CA002EF01E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -442,7 +546,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7U5XZ95AHH;
-				INFOPLIST_FILE = GBTrainingApp/Info.plist;
+				INFOPLIST_FILE = GBTrainingApp/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -461,7 +565,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7U5XZ95AHH;
-				INFOPLIST_FILE = GBTrainingApp/Info.plist;
+				INFOPLIST_FILE = GBTrainingApp/Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
