@@ -12,6 +12,7 @@ class FriendsVC: UIViewController {
     
     let rootView = FriendsView()
     var friends  = [Friend]()
+    let dbService = DBService()
     
     struct Cells {
         static let friendCell = "FriendCell"
@@ -27,8 +28,9 @@ class FriendsVC: UIViewController {
         super.viewDidLoad()
         getFriends()
         setupViewController()
-        configureTableView()
+        setupTableView()
         setTableViewDelegates()
+        print(Session.shared.token)
     }
     
     
@@ -42,7 +44,7 @@ class FriendsVC: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    private func configureTableView() {
+    private func setupTableView() {
         rootView.tableView.register(FriendCell.self, forCellReuseIdentifier: Cells.friendCell)
     }
     
@@ -54,7 +56,7 @@ class FriendsVC: UIViewController {
     
     
     private func getFriends() {
-        NetworkManager.shared.getFriends() { [weak self] result in
+        NetworkService.shared.getFriends() { [weak self] result in
             guard let self = self else { return }
             
             switch result {

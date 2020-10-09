@@ -51,6 +51,6 @@ class FriendCell: UITableViewCell {
     func set(friend: Friend) {
         nameTitleLabel.text = "\(friend.lastName) \(friend.firstName)"
         //avatarImageView.downloadAvatar(from: friend.avatarUrl)
-        NetworkManager.shared.downloadAvatar(from: friend.avatarUrl, to: avatarImageView)
+        NetworkService.shared.downloadAvatar(from: friend.avatarUrl, to: avatarImageView)
     }
 }

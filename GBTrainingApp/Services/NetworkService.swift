@@ -8,8 +8,8 @@
 
 import UIKit
 
-struct NetworkManager {
-    static let shared   = NetworkManager()
+struct NetworkService {
+    static let shared   = NetworkService()
     private let baseUrl = "https://api.vk.com/method"
     let token           = Session.shared.token
     let cache           = NSCache<NSString, UIImage>()
