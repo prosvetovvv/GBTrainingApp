@@ -10,7 +10,7 @@ import UIKit
 
 class AvatarImageView: UIImageView {
     
-    let cache = NetworkManager.shared.cache
+    let cache = NetworkService.shared.cache
     
     override init(frame: CGRect) {
         super.init(frame: frame)

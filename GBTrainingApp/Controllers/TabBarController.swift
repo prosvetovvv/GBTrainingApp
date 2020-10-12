@@ -9,35 +9,37 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewControllers = [createNewsNC(), createFriendsNC(), createGroupsNC()]
-        UITabBar.appearance().tintColor = .systemGreen
+        viewControllers = [createFriendsNC(), createGroupsNC(), createNewsNC()]
     }
     
-    func createNewsNC() -> UINavigationController {
-        let newsVC = NewsVC()
-        newsVC.title = "News"
-        newsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
-        
-        return UINavigationController(rootViewController: newsVC)
-    }
     
     func createFriendsNC() -> UINavigationController {
         let friendsVC = FriendsVC()
         friendsVC.title = "Friends"
-        friendsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 1)
+        friendsVC.tabBarItem = UITabBarItem(title: "Friends", image: UIImage(systemName: "person.2"), selectedImage: UIImage(systemName: "person.2.fill"))
         
         return UINavigationController(rootViewController: friendsVC)
     }
     
+    
     func createGroupsNC() -> UINavigationController {
         let groupsVC = GroupsVC()
         groupsVC.title = "Groups"
-        groupsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 2)
+        groupsVC.tabBarItem = UITabBarItem(title: "Groups", image: UIImage(systemName: "rectangle.stack.person.crop"), selectedImage: UIImage(systemName: "rectangle.stack.person.crop.fill"))
         
         return UINavigationController(rootViewController: groupsVC)
+    }
+    
+    
+    func createNewsNC() -> UINavigationController {
+        let newsVC = NewsVC()
+        newsVC.title = "News"
+        newsVC.tabBarItem = UITabBarItem(title: "News", image: UIImage(systemName: "face.smiling"), selectedImage: UIImage(systemName: "face.smiling.fill"))
+        
+        return UINavigationController(rootViewController: newsVC)
     }
 }
