@@ -32,6 +32,18 @@ class DBService {
     }
     
     
+    func clearFriends() {
+        let context = storeStack.context
+        let fetchRequest: NSFetchRequest<MyFriend> = MyFriend.fetchRequest()
+        do {
+            let objects = try context.fetch(fetchRequest)
+            _ = objects.map{context.delete($0)}
+            storeStack.saveContext()
+        } catch let error {
+            print("Error deleting: \(error)")
+        }
+    }
+    
     
     func savePhoto(userId: String, photoUrl: String) {
         let context = storeStack.context

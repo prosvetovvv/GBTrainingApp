@@ -19,7 +19,9 @@ class FriendsVC: UIViewController {
         fetchRequest.sortDescriptors = [sort]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.shared.context, sectionNameKeyPath: nil, cacheName: nil)
-
+        
+        fetchedResultsController.delegate = self
+        
         return fetchedResultsController
     }()
     
@@ -78,6 +80,7 @@ class FriendsVC: UIViewController {
             switch result {
             
             case .success(let friends):
+                DBService.shared.clearFriends()
                 DBService.shared.save(friends: friends)
                 
             case .failure(let error):
@@ -106,6 +109,31 @@ extension FriendsVC: UITableViewDataSource, UITableViewDelegate {
         cell.setCell(with: friend)
         
         return cell
+    }
+}
+
+extension FriendsVC: NSFetchedResultsControllerDelegate {
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .insert:
+            rootView.tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        case .delete:
+            rootView.tableView.deleteRows(at: [indexPath!], with: .automatic)
+        default:
+            break
+        }
+    }
+    
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        rootView.tableView.endUpdates()
+    }
+    
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        rootView.tableView.beginUpdates()
     }
 }
 
