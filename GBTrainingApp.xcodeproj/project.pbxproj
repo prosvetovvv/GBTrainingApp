@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E10C0CF425303EB300CA0723 /* MyFriend+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C0CF325303EB300CA0723 /* MyFriend+CoreDataProperties.swift */; };
 		E10C0CFD25303F2300CA0723 /* Group+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C0CFB25303F2300CA0723 /* Group+CoreDataClass.swift */; };
 		E10C0CFE25303F2300CA0723 /* Group+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C0CFC25303F2300CA0723 /* Group+CoreDataProperties.swift */; };
 		E158DBCA252F593900BB1774 /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E158DBC9252F593900BB1774 /* Photo+CoreDataProperties.swift */; };
 		E158DBCF252F599F00BB1774 /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E158DBCE252F599F00BB1774 /* Photo+CoreDataClass.swift */; };
 		E1A7C90A25303CC4003418B4 /* MyFriend+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A7C90925303CC4003418B4 /* MyFriend+CoreDataClass.swift */; };
+		E1C0FBA6253621230009F1EE /* MyFriend+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C0FBA5253621230009F1EE /* MyFriend+CoreDataProperties.swift */; };
 		E1D3D2C1252F07C8002EF01E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D2C0252F07C8002EF01E /* AppDelegate.swift */; };
 		E1D3D2C3252F07C8002EF01E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D2C2252F07C8002EF01E /* SceneDelegate.swift */; };
 		E1D3D2CB252F07C8002EF01E /* GBTrainingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D2C9252F07C8002EF01E /* GBTrainingApp.xcdatamodeld */; };
@@ -56,12 +56,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E10C0CF325303EB300CA0723 /* MyFriend+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyFriend+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		E10C0CFB25303F2300CA0723 /* Group+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		E10C0CFC25303F2300CA0723 /* Group+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		E158DBC9252F593900BB1774 /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		E158DBCE252F599F00BB1774 /* Photo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E1A7C90925303CC4003418B4 /* MyFriend+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyFriend+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E1C0FBA5253621230009F1EE /* MyFriend+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyFriend+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		E1D3D2BD252F07C8002EF01E /* GBTrainingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GBTrainingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1D3D2C0252F07C8002EF01E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1D3D2C2252F07C8002EF01E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -252,10 +252,10 @@
 		E1D3D341252F24CC002EF01E /* BD */ = {
 			isa = PBXGroup;
 			children = (
+				E1C0FBA5253621230009F1EE /* MyFriend+CoreDataProperties.swift */,
+				E1A7C90925303CC4003418B4 /* MyFriend+CoreDataClass.swift */,
 				E10C0CFB25303F2300CA0723 /* Group+CoreDataClass.swift */,
 				E10C0CFC25303F2300CA0723 /* Group+CoreDataProperties.swift */,
-				E10C0CF325303EB300CA0723 /* MyFriend+CoreDataProperties.swift */,
-				E1A7C90925303CC4003418B4 /* MyFriend+CoreDataClass.swift */,
 				E158DBCE252F599F00BB1774 /* Photo+CoreDataClass.swift */,
 				E158DBC9252F593900BB1774 /* Photo+CoreDataProperties.swift */,
 				E1D3D2C9252F07C8002EF01E /* GBTrainingApp.xcdatamodeld */,
@@ -410,8 +410,8 @@
 				E1D3D2C3252F07C8002EF01E /* SceneDelegate.swift in Sources */,
 				E1D3D330252F0A4A002EF01E /* NameTitleLabel.swift in Sources */,
 				E1D3D30F252F0A14002EF01E /* TabBarController.swift in Sources */,
+				E1C0FBA6253621230009F1EE /* MyFriend+CoreDataProperties.swift in Sources */,
 				E1D3D325252F0A43002EF01E /* Session.swift in Sources */,
-				E10C0CF425303EB300CA0723 /* MyFriend+CoreDataProperties.swift in Sources */,
 				E1D3D310252F0A14002EF01E /* NewsVC.swift in Sources */,
 				E1D3D331252F0A4A002EF01E /* AvatarImageView.swift in Sources */,
 				E1D3D337252F0A5C002EF01E /* Friend.swift in Sources */,

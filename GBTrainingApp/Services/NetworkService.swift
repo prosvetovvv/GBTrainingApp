@@ -17,7 +17,7 @@ struct NetworkService {
     private init() {}
     
     func getFriends(completed: @escaping (Result<[Friend], ErrorMessage>) -> Void) {
-        let urlRequest = baseUrl + "/friends.get?fields=photo_100&access_token=\(token)&v=5.124"
+        let urlRequest = baseUrl + "/friends.get?fields=photo_100,city&access_token=\(token)&v=5.124"
         
         guard let url = URL(string: urlRequest) else {
             completed(.failure(.invalidUsername))
@@ -43,7 +43,7 @@ struct NetworkService {
                 let decoder = JSONDecoder()
                 let friendsResponse = try decoder.decode(FriendsResponse.self, from: data)
                 let friends = friendsResponse.response.items
-                completed(.success(friends))
+                DispatchQueue.main.async { completed(.success(friends)) }
             } catch {
                 print(error)
                 completed(.failure(.invalidData))
@@ -66,17 +66,17 @@ struct NetworkService {
         
         guard let url = URL(string: urlString) else { return }
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-
+            
             if error != nil { return }
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
             guard let data = data else { return }
-
+            
             guard let image = UIImage(data: data) else { return }
             self.cache.setObject(image, forKey: cacheKey)
             
             DispatchQueue.main.async { avatar.image = image }
         }
-
+        
         task.resume()
     }
     

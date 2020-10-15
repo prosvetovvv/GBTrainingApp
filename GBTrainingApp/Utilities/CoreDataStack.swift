@@ -9,10 +9,11 @@ import CoreData
 
 class CoreDataStack {
     
-    var modelName: String
+    static let shared = CoreDataStack()
+    let modelName     = "GBTrainingApp"
     
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: self.modelName)
+        let container = NSPersistentContainer(name: modelName)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -25,9 +26,8 @@ class CoreDataStack {
         return persistentContainer.viewContext
     }
     
-    init(modelName: String) {
-        self.modelName = modelName
-    }
+    
+    private init() {}
     
     
     func saveContext () {
@@ -39,6 +39,13 @@ class CoreDataStack {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
+        }
+    }
+    
+    
+    func applicationDocumentsDirectory() {
+        if let url = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last {
+            print(url.absoluteString)
         }
     }
 }
