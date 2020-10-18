@@ -6,22 +6,42 @@
 //
 
 import UIKit
+import CoreData
 
 class DBService {
     
-    let storeStack = CoreDataStack(modelName: "GBTrainingApp")
+    static let shared = DBService()
+    let storeStack    = CoreDataStack.shared
     
-    func saveFriend(userId: String, firstName: String, lastName: String, activity: String, avatarUrl: String?) {
+    private init() {}
+    
+    
+    func save(friends: [Friend]) {
         let context = storeStack.context
-        let friend = MyFriend(context: context)
         
-        friend.userId = userId
-        friend.firstName = firstName
-        friend.lastName = lastName
-        friend.activity = activity
-        friend.avatarUrl = avatarUrl
-        
+        for friend in friends {
+            let myFriend = MyFriend(context: context)
+            
+            myFriend.id        = friend.id
+            myFriend.firstName = friend.firstName
+            myFriend.lastName  = friend.lastName
+            myFriend.city      = friend.city?.title
+            myFriend.avatarUrl = friend.avatarUrl
+        }
         storeStack.saveContext()
+    }
+    
+    
+    func clearFriends() {
+        let context = storeStack.context
+        let fetchRequest: NSFetchRequest<MyFriend> = MyFriend.fetchRequest()
+        do {
+            let objects = try context.fetch(fetchRequest)
+            _ = objects.map{context.delete($0)}
+            storeStack.saveContext()
+        } catch let error {
+            print("Error deleting: \(error)")
+        }
     }
     
     

@@ -9,10 +9,7 @@
 import Foundation
 
 class Session {
-    let login = "user"
-    let password = "password"
     var token = ""
-    
     static let shared = Session()
     
     private init() {}

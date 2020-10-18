@@ -18,13 +18,21 @@ struct Response: Codable {
 }
 
 struct Friend: Codable {
+    let id: Int64
     let firstName: String
     let lastName: String
     let avatarUrl: String
+    let city: City?
 
     enum CodingKeys: String, CodingKey {
-        case firstName = "first_name"
-        case lastName = "last_name"
-        case avatarUrl = "photo_100"
+        case id
+        case city
+        case firstName  = "first_name"
+        case lastName   = "last_name"
+        case avatarUrl  = "photo_100"
     }
+}
+
+struct City: Codable {
+    let title: String
 }
