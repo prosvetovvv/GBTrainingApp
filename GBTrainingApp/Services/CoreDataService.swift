@@ -8,9 +8,9 @@
 import UIKit
 import CoreData
 
-class DBService {
+class CoreDataService {
     
-    static let shared = DBService()
+    static let shared = CoreDataService()
     let storeStack    = CoreDataStack.shared
     
     private init() {}

@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class MainLoginView: WKWebView, WKNavigationDelegate {
+class VKLoginView: WKWebView, WKNavigationDelegate {
     
     override init(frame: CGRect, configuration: WKWebViewConfiguration) {
         super.init(frame: frame, configuration: configuration)

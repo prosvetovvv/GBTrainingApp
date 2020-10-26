@@ -9,9 +9,9 @@
 import UIKit
 import WebKit
 
-class MainLoginVC: UIViewController {
+class VKLoginVC: UIViewController {
     
-    let rootView = MainLoginView()
+    let rootView = VKLoginView()
     
     override func loadView() {
         super.loadView()
@@ -30,7 +30,7 @@ class MainLoginVC: UIViewController {
     }
 }
 
-extension MainLoginVC: WKNavigationDelegate {
+extension VKLoginVC: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         guard let url = navigationResponse.response.url, url.path == "/blank.html", let fragment = url.fragment  else {
             decisionHandler(.allow)

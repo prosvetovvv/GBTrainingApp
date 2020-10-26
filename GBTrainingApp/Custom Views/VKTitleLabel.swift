@@ -1,15 +1,14 @@
 //
-//  NameTitleLabel.swift
-//  VKCloneWithoutStoryboard
+//  VKTitleLabel.swift
+//  GBTrainingApp
 //
-//  Created by Vitaly Prosvetov on 06.10.2020.
-//  Copyright © 2020 Vitaly Prosvetov. All rights reserved.
+//  Created by Vitaly Prosvetov on 23.10.2020.
 //
 
 import UIKit
 
-class NameTitleLabel: UILabel {
-
+class VKTitleLabel: UILabel {
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -23,14 +22,14 @@ class NameTitleLabel: UILabel {
     
     init (textAlignment: NSTextAlignment, fontSize: CGFloat) {
         super.init(frame: .zero)
-        self.textAlignment = textAlignment
-        self.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
+        self.textColor      = .label
+        self.textAlignment  = textAlignment
+        self.font           = UIFont.systemFont(ofSize: fontSize, weight: .bold)
         setup()
     }
     
     
     private func setup() {
-        textColor                 = .label
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor        = 0.9
         numberOfLines             = 1
@@ -38,3 +37,6 @@ class NameTitleLabel: UILabel {
         translatesAutoresizingMaskIntoConstraints = false
     }
 }
+
+
+

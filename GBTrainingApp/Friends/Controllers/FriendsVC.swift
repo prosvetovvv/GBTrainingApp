@@ -15,9 +15,10 @@ class FriendsVC: UIViewController {
     
     lazy var fetchedResultsController: NSFetchedResultsController<MyFriend> = {
         let fetchRequest: NSFetchRequest<MyFriend> = MyFriend.fetchRequest()
+        let filter = "DELETED"
         let sort = NSSortDescriptor(key: #keyPath(MyFriend.lastName), ascending: true)
+        fetchRequest.predicate = NSPredicate(format: "firstName != %@", filter)
         fetchRequest.sortDescriptors = [sort]
-        
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.shared.context, sectionNameKeyPath: nil, cacheName: nil)
         
         fetchedResultsController.delegate = self
@@ -80,8 +81,8 @@ class FriendsVC: UIViewController {
             switch result {
             
             case .success(let friends):
-                DBService.shared.clearFriends()
-                DBService.shared.save(friends: friends)
+                CoreDataService.shared.clearFriends()
+                CoreDataService.shared.save(friends: friends)
                 
             case .failure(let error):
                 print(error.rawValue)

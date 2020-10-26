@@ -10,8 +10,9 @@ import UIKit
 
 class FriendCell: UITableViewCell {
     
-    let avatarImageView = AvatarImageView(frame: .zero)
-    let nameTitleLabel  = NameTitleLabel(textAlignment: .left, fontSize: 20)
+    let avatarImageView = VKAvatarImageView(frame: .zero)
+    let nameTitleLabel  = VKTitleLabel(textAlignment: .left, fontSize: 22)
+    let cityTitleLabel  = VKSecondaryTitleLabel(fontSize: 17)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -32,10 +33,15 @@ class FriendCell: UITableViewCell {
             avatarImageView.heightAnchor.constraint(equalToConstant: 80),
             avatarImageView.widthAnchor.constraint(equalToConstant: 80),
             
-            nameTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            nameTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -17),
             nameTitleLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
             nameTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-            nameTitleLabel.heightAnchor.constraint(equalToConstant: 80)
+            nameTitleLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            cityTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 17),
+            cityTitleLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 20),
+            cityTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            cityTitleLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -43,6 +49,7 @@ class FriendCell: UITableViewCell {
     private func setup() {
         addSubview(avatarImageView)
         addSubview(nameTitleLabel)
+        addSubview(cityTitleLabel)
         
         setNeedsUpdateConstraints()
     }
@@ -50,8 +57,9 @@ class FriendCell: UITableViewCell {
     
     func setCell(with friend: MyFriend) {
         DispatchQueue.main.async {
-            self.nameTitleLabel.text = "\(friend.firstName) \(friend.lastName)"
             NetworkService.shared.downloadAvatar(from: friend.avatarUrl, to: self.avatarImageView)
+            self.nameTitleLabel.text = "\(friend.firstName) \(friend.lastName)"
+            self.cityTitleLabel.text = friend.city
         }
     }
 }
