@@ -24,7 +24,7 @@ class VKTitleLabel: UILabel {
         super.init(frame: .zero)
         self.textColor      = .label
         self.textAlignment  = textAlignment
-        self.font           = UIFont.systemFont(ofSize: fontSize, weight: .bold)
+        self.font           = UIFont.systemFont(ofSize: fontSize, weight: .medium)
         setup()
     }
     

@@ -20,6 +20,7 @@ class CoreDataService {
         let context = storeStack.context
         
         for friend in friends {
+            if friend.firstName == "DELETED" { continue }
             let myFriend = MyFriend(context: context)
             
             myFriend.id        = friend.id

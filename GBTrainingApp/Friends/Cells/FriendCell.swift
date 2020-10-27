@@ -10,9 +10,12 @@ import UIKit
 
 class FriendCell: UITableViewCell {
     
+    static let id = "FriendCell"
+    
     let avatarImageView = VKAvatarImageView(frame: .zero)
     let nameTitleLabel  = VKTitleLabel(textAlignment: .left, fontSize: 22)
     let cityTitleLabel  = VKSecondaryTitleLabel(fontSize: 17)
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -55,7 +58,7 @@ class FriendCell: UITableViewCell {
     }
     
     
-    func setCell(with friend: MyFriend) {
+    func set(with friend: MyFriend) {
         DispatchQueue.main.async {
             NetworkService.shared.downloadAvatar(from: friend.avatarUrl, to: self.avatarImageView)
             self.nameTitleLabel.text = "\(friend.firstName) \(friend.lastName)"
