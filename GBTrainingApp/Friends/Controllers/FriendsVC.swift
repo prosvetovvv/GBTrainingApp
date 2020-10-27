@@ -12,25 +12,11 @@ import CoreData
 class FriendsVC: UIViewController {
     
     let rootView = FriendsView()
+    var currentSearchText = ""
+    var fetchedResultsController: NSFetchedResultsController<MyFriend>!
+    var dataSource: UITableViewDiffableDataSource<Int, MyFriend>!
     
-    lazy var fetchedResultsController: NSFetchedResultsController<MyFriend> = {
-        let fetchRequest: NSFetchRequest<MyFriend> = MyFriend.fetchRequest()
-        let filter = "DELETED"
-        let sort = NSSortDescriptor(key: #keyPath(MyFriend.lastName), ascending: true)
-        fetchRequest.predicate = NSPredicate(format: "firstName != %@", filter)
-        fetchRequest.sortDescriptors = [sort]
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.shared.context, sectionNameKeyPath: nil, cacheName: nil)
         
-        fetchedResultsController.delegate = self
-        
-        return fetchedResultsController
-    }()
-    
-    struct Cells {
-        static let friendCell = "FriendCell"
-    }
-    
-    
     override func loadView() {
         view = rootView
     }
@@ -39,9 +25,13 @@ class FriendsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(Session.shared.token)
+        
         setupViewController()
+        setupSearchController()
+        
+        setupFetchedResultController()
+        
         setupTableView()
-        setTableViewDelegates()
         updateTableContent()
     }
     
@@ -51,6 +41,7 @@ class FriendsVC: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    //MARK: - Settings
     
     private func setupViewController() {
         view.backgroundColor = .systemBackground
@@ -58,14 +49,48 @@ class FriendsVC: UIViewController {
     }
     
     
-    private func setupTableView() {
-        rootView.tableView.register(FriendCell.self, forCellReuseIdentifier: Cells.friendCell)
+    private func setupSearchController() {
+        let searchController                                    = UISearchController()
+        searchController.searchResultsUpdater                   = self
+        searchController.searchBar.placeholder                  = "Введите имя"
+        searchController.obscuresBackgroundDuringPresentation   = false
+        navigationItem.searchController                         = searchController
     }
     
+    //MARK: - Core Data
     
-    private func setTableViewDelegates() {
-        rootView.tableView.delegate = self
-        rootView.tableView.dataSource = self
+    private func setupFetchedResultController() {
+        let fetchRequest: NSFetchRequest<MyFriend> = MyFriend.fetchRequest()
+        
+        if !currentSearchText.isEmpty {
+            fetchRequest.predicate = NSPredicate(format: "firstName CONTAINS[c] %@ OR lastName CONTAINS[c] %@", currentSearchText, currentSearchText)
+        }
+        
+        let sort = NSSortDescriptor(key: #keyPath(MyFriend.lastName), ascending: true)
+        fetchRequest.sortDescriptors = [sort]
+        
+        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.shared.context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
+        
+        do {
+            try fetchedResultsController.performFetch()
+            updateSnapshot()
+        } catch {
+            print("Fetch failed")
+        }
+    }
+    
+    //MARK: - Table View
+    
+    private func setupTableView() {
+        rootView.tableView.register(FriendCell.self, forCellReuseIdentifier: FriendCell.id)
+        dataSource = UITableViewDiffableDataSource<Int, MyFriend>(tableView: rootView.tableView, cellProvider: { (tableView, indexPath, friend) -> UITableViewCell? in
+            let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.id, for: indexPath) as! FriendCell
+            cell.set(with: friend)
+            return cell
+        })
+        updateSnapshot()
     }
     
     
@@ -77,13 +102,27 @@ class FriendsVC: UIViewController {
             print("Fetching error: \(error), \(error.userInfo)")
         }
         
+        getFriendsFromNetwork()
+    }
+    
+    
+    private func updateSnapshot() {
+        var dataSourceSnapshot = NSDiffableDataSourceSnapshot<Int, MyFriend>()
+        dataSourceSnapshot.appendSections([0])
+        dataSourceSnapshot.appendItems(fetchedResultsController.fetchedObjects ?? [])
+        DispatchQueue.main.async { self.dataSource.apply(dataSourceSnapshot, animatingDifferences: true) }
+    }
+    
+    //MARK: - Network
+    
+    private func getFriendsFromNetwork() {
         NetworkService.shared.getFriends() { result in
             switch result {
-            
+
             case .success(let friends):
                 CoreDataService.shared.clearFriends()
                 CoreDataService.shared.save(friends: friends)
-                
+
             case .failure(let error):
                 print(error.rawValue)
             }
@@ -91,50 +130,20 @@ class FriendsVC: UIViewController {
     }
 }
 
-extension FriendsVC: UITableViewDataSource, UITableViewDelegate {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedResultsController.sections?.count ?? 0
-    }
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sectionInfo = fetchedResultsController.sections?[section] else { return 0 }
-        return sectionInfo.numberOfObjects
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.friendCell, for: indexPath) as! FriendCell
-        let friend = fetchedResultsController.object(at: indexPath)
-        cell.setCell(with: friend)
-        
-        return cell
+//MARK: - Extensions
+
+extension FriendsVC: NSFetchedResultsControllerDelegate {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        updateSnapshot()
     }
 }
 
-extension FriendsVC: NSFetchedResultsControllerDelegate {
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
-        switch type {
-        case .insert:
-            rootView.tableView.insertRows(at: [newIndexPath!], with: .automatic)
-        case .delete:
-            rootView.tableView.deleteRows(at: [indexPath!], with: .automatic)
-        default:
-            break
-        }
-    }
-    
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        rootView.tableView.endUpdates()
-    }
-    
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        rootView.tableView.beginUpdates()
+
+extension FriendsVC: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        currentSearchText = text
+        setupFetchedResultController()
     }
 }
 

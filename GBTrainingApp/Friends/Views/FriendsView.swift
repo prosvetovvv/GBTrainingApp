@@ -34,16 +34,11 @@ class FriendsView: UIView {
     }
     
     private func setup() {
-        
-        setupTableView()
-        
-        setNeedsUpdateConstraints()
-    }
-    
-    private func setupTableView() {
         addSubview(tableView)
         
         tableView.rowHeight = 100
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        setNeedsUpdateConstraints()
     }
 }
