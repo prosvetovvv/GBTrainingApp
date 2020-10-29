@@ -2,7 +2,7 @@
 //  MyFriend+CoreDataProperties.swift
 //  GBTrainingApp
 //
-//  Created by Vitaly Prosvetov on 13.10.2020.
+//  Created by Vitaly Prosvetov on 29.10.2020.
 //
 //
 
@@ -16,11 +16,12 @@ extension MyFriend {
         return NSFetchRequest<MyFriend>(entityName: "MyFriend")
     }
 
-    @NSManaged public var city: String?
     @NSManaged public var avatarUrl: String
+    @NSManaged public var city: String?
     @NSManaged public var firstName: String
     @NSManaged public var id: Int64
     @NSManaged public var lastName: String
+    @NSManaged public var birthDate: String?
 
 }
 

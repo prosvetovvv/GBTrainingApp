@@ -23,13 +23,15 @@ struct Friend: Codable {
     let lastName: String
     let avatarUrl: String
     let city: City?
+    let birthData: String?
 
     enum CodingKeys: String, CodingKey {
         case id
         case city
         case firstName  = "first_name"
         case lastName   = "last_name"
-        case avatarUrl  = "photo_100"
+        case avatarUrl  = "photo_200"
+        case birthData  = "bdate"
     }
 }
 

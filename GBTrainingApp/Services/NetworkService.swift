@@ -17,7 +17,7 @@ struct NetworkService {
     private init() {}
     
     func getFriends(completed: @escaping (Result<[Friend], ErrorMessage>) -> Void) {
-        let urlRequest = baseUrl + "/friends.get?fields=photo_100,city&access_token=\(token)&v=5.124"
+        let urlRequest = baseUrl + "/friends.get?fields=photo_200,city,bdate&access_token=\(token)&v=5.124"
         
         guard let url = URL(string: urlRequest) else {
             completed(.failure(.invalidUsername))

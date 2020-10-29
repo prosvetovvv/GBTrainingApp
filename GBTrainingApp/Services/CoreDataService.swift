@@ -23,11 +23,12 @@ class CoreDataService {
             if friend.firstName == "DELETED" { continue }
             let myFriend = MyFriend(context: context)
             
-            myFriend.id        = friend.id
-            myFriend.firstName = friend.firstName
-            myFriend.lastName  = friend.lastName
-            myFriend.city      = friend.city?.title
-            myFriend.avatarUrl = friend.avatarUrl
+            myFriend.id         = friend.id
+            myFriend.firstName  = friend.firstName
+            myFriend.lastName   = friend.lastName
+            myFriend.city       = friend.city?.title
+            myFriend.avatarUrl  = friend.avatarUrl
+            myFriend.birthDate  = friend.birthData
         }
         storeStack.saveContext()
     }

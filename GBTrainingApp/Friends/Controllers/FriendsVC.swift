@@ -28,6 +28,7 @@ class FriendsVC: UIViewController {
         
         setupViewController()
         setupSearchController()
+        setTableViewDelegate()
         
         setupFetchedResultController()
         
@@ -38,6 +39,8 @@ class FriendsVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.backgroundColor     = .clear
+        navigationController?.navigationBar.prefersLargeTitles  = true
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
@@ -55,6 +58,11 @@ class FriendsVC: UIViewController {
         searchController.searchBar.placeholder                  = "Введите имя"
         searchController.obscuresBackgroundDuringPresentation   = false
         navigationItem.searchController                         = searchController
+    }
+    
+    
+    private func setTableViewDelegate() {
+        rootView.tableView.delegate = self
     }
     
     //MARK: - Core Data
@@ -131,6 +139,19 @@ class FriendsVC: UIViewController {
 }
 
 //MARK: - Extensions
+
+extension FriendsVC: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let friend = fetchedResultsController.fetchedObjects?[indexPath.row] else{ return }
+        
+        let destVC = FriendInfoVC()
+        destVC.modalPresentationStyle = .fullScreen
+        destVC.friend = friend
+        navigationController?.pushViewController(destVC, animated: true)
+    }
+}
+
 
 extension FriendsVC: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
