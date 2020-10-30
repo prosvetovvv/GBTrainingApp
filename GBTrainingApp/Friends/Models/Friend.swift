@@ -9,10 +9,10 @@
 import Foundation
 
 struct FriendsResponse: Codable {
-    let response: Response
+    let response: FriendsResponseStruct
 }
 
-struct Response: Codable {
+struct FriendsResponseStruct: Codable {
     let count: Int
     let items: [Friend]
 }

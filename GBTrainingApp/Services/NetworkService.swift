@@ -9,12 +9,15 @@
 import UIKit
 
 struct NetworkService {
+    
     static let shared   = NetworkService()
     private let baseUrl = "https://api.vk.com/method"
     let token           = Session.shared.token
     let cache           = NSCache<NSString, UIImage>()
     
+    
     private init() {}
+    
     
     func getFriends(completed: @escaping (Result<[Friend], ErrorMessage>) -> Void) {
         let urlRequest = baseUrl + "/friends.get?fields=photo_200,city,bdate&access_token=\(token)&v=5.124"
@@ -44,6 +47,45 @@ struct NetworkService {
                 let friendsResponse = try decoder.decode(FriendsResponse.self, from: data)
                 let friends = friendsResponse.response.items
                 DispatchQueue.main.async { completed(.success(friends)) }
+            } catch {
+                print(error)
+                completed(.failure(.invalidData))
+                return
+            }
+        }
+        
+        task.resume()
+    }
+    
+    
+    func getPhotos(for friendId: String, completed: @escaping (Result<PhotosResponseStruct, ErrorMessage>) -> Void) {
+        let urlRequest = baseUrl + "/photos.getAll?owner_id=\(friendId)&access_token=\(token)&v=5.124"
+        
+        guard let url = URL(string: urlRequest) else {
+            completed(.failure(.invalidUsername))
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            
+            if let _ = error {
+                completed(.failure(.unableToComplete))
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completed(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completed(.failure(.invalidData))
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let photosResponse = try decoder.decode(PhotosResponse.self, from: data)
+                let photosResponseStruct = photosResponse.response
+                DispatchQueue.main.async { completed(.success(photosResponseStruct)) }
             } catch {
                 print(error)
                 completed(.failure(.invalidData))
