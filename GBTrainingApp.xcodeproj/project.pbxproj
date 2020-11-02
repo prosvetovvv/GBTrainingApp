@@ -27,6 +27,7 @@
 		E16EC905254AB85F00834ACD /* MyFriend+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16EC904254AB85F00834ACD /* MyFriend+CoreDataProperties.swift */; };
 		E16EC90A254ABB9400834ACD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16EC909254ABB9400834ACD /* Constants.swift */; };
 		E1914FF0253EC20D00EC27E8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1914FEF253EC20D00EC27E8 /* GoogleService-Info.plist */; };
+		E1A4FB62254FDE5700FF62CE /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A4FB61254FDE5700FF62CE /* NewsView.swift */; };
 		E1A7C90A25303CC4003418B4 /* MyFriend+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A7C90925303CC4003418B4 /* MyFriend+CoreDataClass.swift */; };
 		E1BFADC1254360FF000F1EB6 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BFADC0254360FF000F1EB6 /* AlertView.swift */; };
 		E1BFADC925436231000F1EB6 /* VKTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BFADC825436231000F1EB6 /* VKTitleLabel.swift */; };
@@ -100,6 +101,7 @@
 		E16EC904254AB85F00834ACD /* MyFriend+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyFriend+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		E16EC909254ABB9400834ACD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E1914FEF253EC20D00EC27E8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E1A4FB61254FDE5700FF62CE /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
 		E1A7C90925303CC4003418B4 /* MyFriend+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyFriend+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E1BFADC0254360FF000F1EB6 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		E1BFADC825436231000F1EB6 /* VKTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKTitleLabel.swift; sourceTree = "<group>"; };
@@ -278,6 +280,31 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
+		E1A4FB5E254FDD4200FF62CE /* News */ = {
+			isa = PBXGroup;
+			children = (
+				E1A4FB60254FDE0700FF62CE /* Views */,
+				E1A4FB5F254FDD6A00FF62CE /* Controllers */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
+		E1A4FB5F254FDD6A00FF62CE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E1D3D30C252F0A14002EF01E /* NewsVC.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E1A4FB60254FDE0700FF62CE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E1A4FB61254FDE5700FF62CE /* NewsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		E1D3D2B4252F07C8002EF01E = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +333,7 @@
 				E10B48FE2546BE09008C1D4A /* Alert */,
 				E10B48FA2546BD6F008C1D4A /* Navigation */,
 				E10B48F72546BCBD008C1D4A /* Friends */,
+				E1A4FB5E254FDD4200FF62CE /* News */,
 				E10B48E42546B0A9008C1D4A /* Extensions */,
 				E10B48ED2546B9E5008C1D4A /* Login */,
 				E1D3D341252F24CC002EF01E /* BD */,
@@ -353,7 +381,6 @@
 			isa = PBXGroup;
 			children = (
 				E1D3D309252F0A14002EF01E /* GroupsVC.swift */,
-				E1D3D30C252F0A14002EF01E /* NewsVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -684,6 +711,7 @@
 				E1D3D30E252F0A14002EF01E /* FriendsVC.swift in Sources */,
 				E158DBCF252F599F00BB1774 /* Photo+CoreDataClass.swift in Sources */,
 				E1D3D31E252F0A3B002EF01E /* NetworkService.swift in Sources */,
+				E1A4FB62254FDE5700FF62CE /* NewsView.swift in Sources */,
 				E12E97A0254B54EE008B1DD4 /* VKSymbolImageView.swift in Sources */,
 				E1D3D360252F2937002EF01E /* CoreDataService.swift in Sources */,
 				E160CA9925499730009EBAEA /* FriendInfoVC.swift in Sources */,
