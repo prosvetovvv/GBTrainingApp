@@ -10,4 +10,8 @@ import Foundation
 enum SFSymbols: String {
     case city       = "mappin.and.ellipse"
     case birthDate  = "gift"
+    case likes      = "heart"
+    case comments   = "bubble.left"
+    case reposts    = "arrowshape.turn.up.right"
+    case show       = "eye"
 }

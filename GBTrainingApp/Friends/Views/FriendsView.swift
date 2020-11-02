@@ -12,6 +12,7 @@ class FriendsView: UIView {
 
     let tableView = UITableView()
     
+    
     init() {
         super.init(frame: .zero)
         setup()
@@ -20,6 +21,17 @@ class FriendsView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    private func setup() {
+        addSubview(tableView)
+        
+        tableView.rowHeight = 100
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        setNeedsUpdateConstraints()
+    }
+    
     
     override func updateConstraints() {
         
@@ -31,14 +43,5 @@ class FriendsView: UIView {
         ])
         
         super.updateConstraints()
-    }
-    
-    private func setup() {
-        addSubview(tableView)
-        
-        tableView.rowHeight = 100
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        setNeedsUpdateConstraints()
     }
 }

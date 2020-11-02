@@ -9,6 +9,14 @@
 import UIKit
 
 class NewsVC: UIViewController {
+    
+    let rootView = NewsView()
+    
+    override func loadView() {
+        super.loadView()
+        
+        view = rootView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
