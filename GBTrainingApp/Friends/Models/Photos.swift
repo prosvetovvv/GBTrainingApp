@@ -14,11 +14,11 @@ struct PhotosResponse: Codable {
 
 struct PhotosResponseStruct: Codable {
     let count: Int
-    let items: [Item]
+    let items: [PhotoItem]
 }
 
 
-struct Item: Codable {
+struct PhotoItem: Codable {
     let sizes: [Size]
 
     enum CodingKeys: String, CodingKey {
@@ -29,19 +29,4 @@ struct Item: Codable {
 
 struct Size: Codable {
     let url: String
-    let type: TypeEnum
-}
-
-
-enum TypeEnum: String, Codable {
-    case m = "m"
-    case o = "o"
-    case p = "p"
-    case q = "q"
-    case r = "r"
-    case s = "s"
-    case w = "w"
-    case x = "x"
-    case y = "y"
-    case z = "z"
 }

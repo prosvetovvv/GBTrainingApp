@@ -33,7 +33,8 @@ class VKLoginView: WKWebView, WKNavigationDelegate {
             URLQueryItem(name: "client_id", value: "7611296"),
             URLQueryItem(name: "display", value: "mobile"),
             URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
-            URLQueryItem(name: "scope", value: "262150"),
+            //URLQueryItem(name: "scope", value: "262150"),
+            URLQueryItem(name: "scope", value: "friends,photos,wall"),
             URLQueryItem(name: "response_type", value: "token"),
             URLQueryItem(name: "v", value: "5.68")
             //Для выхода из аккаунта

@@ -97,6 +97,44 @@ struct NetworkService {
     }
     
     
+    func getNews(for friendId: String, completed: @escaping (Result<NewsResponseStruct, ErrorMessage>) -> Void) {
+        let urlRequest = baseUrl + "newsfeed.get?filter=post&access_token=\(token)&v=5.124"
+        
+        guard let url = URL(string: urlRequest) else {
+            completed(.failure(.invalidUsername))
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            
+            if let _ = error {
+                completed(.failure(.unableToComplete))
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completed(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completed(.failure(.invalidData))
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let newsResponse = try decoder.decode(NewsResponse.self, from: data)
+                let newsResponseStruct = newsResponse.response
+                DispatchQueue.main.async { completed(.success(newsResponseStruct)) }
+            } catch {
+                print(error)
+                completed(.failure(.invalidData))
+                return
+            }
+        }
+        
+        task.resume()
+    }
+    
     func downloadAvatar(from urlString: String, to avatar: UIImageView) {
         
         let cacheKey = NSString(string: urlString)

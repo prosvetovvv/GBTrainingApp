@@ -13,6 +13,17 @@
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="News" representedClassName="News" syncable="YES">
+        <attribute name="avatarUrl" optional="YES" attributeType="String"/>
+        <attribute name="comments" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="likes" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="reposts" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="show" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sourceId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES">
         <attribute name="photo" optional="YES" attributeType="String"/>
         <attribute name="userId" optional="YES" attributeType="String"/>
@@ -21,5 +32,6 @@
         <element name="Group" positionX="-54" positionY="18" width="128" height="88"/>
         <element name="MyFriend" positionX="-63" positionY="-18" width="128" height="133"/>
         <element name="Photo" positionX="-63" positionY="9" width="128" height="73"/>
+        <element name="News" positionX="-54" positionY="27" width="128" height="178"/>
     </elements>
 </model>
