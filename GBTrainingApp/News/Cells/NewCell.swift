@@ -13,13 +13,14 @@ class NewCell: UITableViewCell {
     
     let avatarImageView = VKAvatarImageView(frame: .zero)
     let nameTitleLabel  = VKTitleLabel(textAlignment: .left, fontSize: 22)
-    let timeTitleLabel  = VKSecondaryTitleLabel(fontSize: 17)
+    let dateTitleLabel  = VKSecondaryTitleLabel(fontSize: 17)
     let bodyLabel       = VKBodyLabel(textAlignment: .right)
     let scrollView      = UIScrollView()
     let containerView   = UIView()
     let itemInfoBar     = VKItemInfoBar()
     
-
+    let avatarPlaceholder: UIImage = UIImage(named: "placeholder")!
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -30,11 +31,11 @@ class NewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
- 
+    
     private func setup() {
         addSubview(avatarImageView)
         addSubview(nameTitleLabel)
-        addSubview(timeTitleLabel)
+        addSubview(dateTitleLabel)
         addSubview(itemInfoBar)
         
         scrollView.addSubview(containerView)
@@ -44,11 +45,17 @@ class NewCell: UITableViewCell {
     }
     
     
-    func set() {
-        
+    func set(with new: News) {
+        DispatchQueue.main.async {
+            self.avatarImageView.image = self.avatarPlaceholder
+            self.nameTitleLabel.text = String(new.sourceId)
+            self.dateTitleLabel.text = ConvertService.shared.convertUnixTimeToDate(from: new.date)
+            self.bodyLabel.text = new.text
+            self.itemInfoBar.set(with: new)
+        }
     }
     
-        
+    
     override func updateConstraints() {
         super.updateConstraints()
         
@@ -66,10 +73,10 @@ class NewCell: UITableViewCell {
             nameTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
             nameTitleLabel.heightAnchor.constraint(equalToConstant: 40),
             
-            timeTitleLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor, constant: 17),
-            timeTitleLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: textImagePadding),
-            timeTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-            timeTitleLabel.heightAnchor.constraint(equalToConstant: 40),
+            dateTitleLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor, constant: 17),
+            dateTitleLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: textImagePadding),
+            dateTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            dateTitleLabel.heightAnchor.constraint(equalToConstant: 40),
             
             scrollView.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: padding),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),

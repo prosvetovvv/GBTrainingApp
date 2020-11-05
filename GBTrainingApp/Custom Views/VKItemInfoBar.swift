@@ -9,11 +9,11 @@ import UIKit
 
 class VKItemInfoBar: UIView {
     
-    let stackView   = UIStackView()
-    let likes       = VKItemInfoView(symbol: .likes)
-    let comments    = VKItemInfoView(symbol: .comments)
-    let reposts     = VKItemInfoView(symbol: .reposts)
-    let show        = VKItemInfoView(symbol: .show)
+    private let stackView   = UIStackView()
+    private let likes       = VKItemInfoView(symbol: .likes)
+    private let comments    = VKItemInfoView(symbol: .comments)
+    private let reposts     = VKItemInfoView(symbol: .reposts)
+    private let show        = VKItemInfoView(symbol: .show)
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -23,6 +23,16 @@ class VKItemInfoBar: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func set(with new: News) {
+        DispatchQueue.main.async {
+            self.likes.countLabel.text       = String(new.likes)
+            self.comments.countLabel.text    = String(new.comments)
+            self.reposts.countLabel.text     = String(new.reposts)
+            self.show.countLabel.text        = String(new.show)
+        }
     }
     
     
