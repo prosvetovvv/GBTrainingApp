@@ -16,10 +16,10 @@ class CoreDataService {
     private init() {}
     
     
-    func save(friends: [Friend]) {
+    func saveFriends(from arrayFriends: [Friend]) {
         let context = storeStack.context
         
-        for friend in friends {
+        for friend in arrayFriends {
             if friend.firstName == "DELETED" { continue }
             let myFriend = MyFriend(context: context)
             
@@ -43,6 +43,37 @@ class CoreDataService {
             storeStack.saveContext()
         } catch let error {
             print("Error deleting: \(error)")
+        }
+    }
+    
+    
+    func saveNews(from arrayNews: [New]) {
+        let context = storeStack.context
+        
+        for new in arrayNews {
+            let news = News(context: context)
+            
+            news.sourceId = new.sourceId
+            news.date = new.date
+            news.text = new.text
+            news.likes = new.likes?.count ?? 0
+            news.comments = new.comments?.count ?? 0
+            news.reposts = new.reposts?.count ?? 0
+            news.show = new.views?.count ?? 0
+        }
+        storeStack.saveContext()
+    }
+    
+    
+    func clearNews() {
+        let context = storeStack.context
+        let fetchRequest: NSFetchRequest<News> = News.fetchRequest()
+        do {
+            let object = try context.fetch(fetchRequest)
+            _ = object.map{context.delete($0)}
+            storeStack.saveContext()
+        } catch let error {
+            print(error)
         }
     }
     

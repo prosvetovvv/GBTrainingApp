@@ -25,6 +25,9 @@ class FriendInfoVC: UIViewController {
         setupViewController()
         setup()
         
+        print("HELLO")
+        print("HELLO1")
+        
         getPhotoFromNetwork(for: String(friend.id))
         
     }

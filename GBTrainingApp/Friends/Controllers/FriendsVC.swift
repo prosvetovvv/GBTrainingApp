@@ -129,7 +129,7 @@ class FriendsVC: UIViewController {
 
             case .success(let friends):
                 CoreDataService.shared.clearFriends()
-                CoreDataService.shared.save(friends: friends)
+                CoreDataService.shared.saveFriends(from: friends)
 
             case .failure(let error):
                 print(error.rawValue)
