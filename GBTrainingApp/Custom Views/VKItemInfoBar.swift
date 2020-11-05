@@ -37,6 +37,8 @@ class VKItemInfoBar: UIView {
     
     
     private func setup() {
+        translatesAutoresizingMaskIntoConstraints = false
+        
         stackView.axis          = .horizontal
         stackView.distribution  = .equalSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,5 +47,18 @@ class VKItemInfoBar: UIView {
         stackView.addArrangedSubview(comments)
         stackView.addArrangedSubview(reposts)
         stackView.addArrangedSubview(show)
+        
+        addSubview(stackView)
+    }
+    
+    
+    override func updateConstraints() {
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        super.updateConstraints()
     }
 }

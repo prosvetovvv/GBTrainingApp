@@ -14,7 +14,7 @@ class NewCell: UITableViewCell {
     let avatarImageView = VKAvatarImageView(frame: .zero)
     let nameTitleLabel  = VKTitleLabel(textAlignment: .left, fontSize: 22)
     let dateTitleLabel  = VKSecondaryTitleLabel(fontSize: 17)
-    let bodyLabel       = VKBodyLabel(textAlignment: .right)
+    let bodyLabel       = VKNewBodyLabel()
     let scrollView      = UIScrollView()
     let containerView   = UIView()
     let itemInfoBar     = VKItemInfoBar()
@@ -42,7 +42,6 @@ class NewCell: UITableViewCell {
         setupContainerView()
         
         
-        
         //scrollView.addSubview(containerView)
         //containerView.addSubview(bodyLabel)
         
@@ -62,6 +61,9 @@ class NewCell: UITableViewCell {
         containerView.backgroundColor = .systemPink
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(bodyLabel)
+        
+        //addSubview(containerView)
+        
         scrollView.addSubview(containerView)
     }
     
@@ -100,7 +102,7 @@ class NewCell: UITableViewCell {
             
             scrollView.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: padding),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             scrollView.bottomAnchor.constraint(equalTo: itemInfoBar.topAnchor, constant: -padding),
             
             containerView.topAnchor.constraint(equalTo: scrollView.topAnchor),
@@ -109,16 +111,15 @@ class NewCell: UITableViewCell {
             containerView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             containerView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             containerView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
-            
-            bodyLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            bodyLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+
+            bodyLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
+            bodyLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             bodyLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            bodyLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -40),
             
             itemInfoBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             itemInfoBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            itemInfoBar.heightAnchor.constraint(equalToConstant: 40),
-            itemInfoBar.bottomAnchor.constraint(equalTo: bottomAnchor)
+            itemInfoBar.heightAnchor.constraint(equalToConstant: 20),
+            itemInfoBar.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -10)
         ])
         super.updateConstraints()
     }
