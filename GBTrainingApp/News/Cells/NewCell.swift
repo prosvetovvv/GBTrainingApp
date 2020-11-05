@@ -38,10 +38,31 @@ class NewCell: UITableViewCell {
         addSubview(dateTitleLabel)
         addSubview(itemInfoBar)
         
-        scrollView.addSubview(containerView)
-        containerView.addSubview(bodyLabel)
+        setupScrollView()
+        setupContainerView()
         
+        
+        
+        //scrollView.addSubview(containerView)
+        //containerView.addSubview(bodyLabel)
+        
+        
+       
         needsUpdateConstraints()
+    }
+    
+    private func setupScrollView() {
+        scrollView.backgroundColor = .systemTeal
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(scrollView)
+    }
+    
+    private func setupContainerView() {
+        containerView.backgroundColor = .systemPink
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(bodyLabel)
+        scrollView.addSubview(containerView)
     }
     
     
@@ -57,7 +78,6 @@ class NewCell: UITableViewCell {
     
     
     override func updateConstraints() {
-        super.updateConstraints()
         
         let padding: CGFloat            = 20
         let textImagePadding: CGFloat   = 12
@@ -97,8 +117,10 @@ class NewCell: UITableViewCell {
             
             itemInfoBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             itemInfoBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            itemInfoBar.heightAnchor.constraint(equalToConstant: 40),
             itemInfoBar.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        super.updateConstraints()
     }
     
 }

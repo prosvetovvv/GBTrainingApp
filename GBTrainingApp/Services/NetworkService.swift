@@ -97,8 +97,9 @@ struct NetworkService {
     }
     
     
-    func getNews(for friendId: String, completed: @escaping (Result<NewsResponseStruct, ErrorMessage>) -> Void) {
-        let urlRequest = baseUrl + "newsfeed.get?filter=post&access_token=\(token)&v=5.124"
+    func getNews(completed: @escaping (Result<[New], ErrorMessage>) -> Void) {
+        let urlRequest = baseUrl + "/newsfeed.get?filter=post&access_token=\(token)&v=5.124"
+        print(urlRequest)
         
         guard let url = URL(string: urlRequest) else {
             completed(.failure(.invalidUsername))
@@ -123,7 +124,7 @@ struct NetworkService {
             do {
                 let decoder = JSONDecoder()
                 let newsResponse = try decoder.decode(NewsResponse.self, from: data)
-                let newsResponseStruct = newsResponse.response
+                let newsResponseStruct = newsResponse.response.items
                 DispatchQueue.main.async { completed(.success(newsResponseStruct)) }
             } catch {
                 print(error)

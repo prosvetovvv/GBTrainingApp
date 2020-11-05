@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class CoreDataService {
+struct CoreDataService {
     
     static let shared = CoreDataService()
     let storeStack    = CoreDataStack.shared
