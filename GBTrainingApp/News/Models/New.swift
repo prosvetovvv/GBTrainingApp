@@ -15,7 +15,7 @@ struct NewsResponse: Codable {
 
 struct NewsResponseStruct: Codable {
     let items: [New]
-    let nextFrom: String
+    let nextFrom: String?
     
     enum CodingKeys: String, CodingKey {
         case items

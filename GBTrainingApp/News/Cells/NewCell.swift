@@ -69,14 +69,21 @@ class NewCell: UITableViewCell {
     
     
     func set(with new: News) {
-        DispatchQueue.main.async {
-            self.avatarImageView.image = self.avatarPlaceholder
-            self.nameTitleLabel.text = String(new.sourceId)
-            self.dateTitleLabel.text = ConvertService.shared.convertUnixTimeToDate(from: new.date)
-            self.bodyLabel.text = new.text
-            self.itemInfoBar.set(with: new)
+        if let newOwner = CoreDataFriendsService.shared.getFriend(by: new.sourceId) {
+            
+            DispatchQueue.main.async {
+                //self.avatarImageView.image = self.avatarPlaceholder
+                //self.avatarImageView.image = newOwner?.avatarUrl
+                //self.nameTitleLabel.text = String(new.sourceId)
+                NetworkService.shared.downloadAvatar(from: newOwner.avatarUrl, to: self.avatarImageView)
+                self.nameTitleLabel.text = "\(newOwner.firstName) \(newOwner.lastName)"
+                self.dateTitleLabel.text = ConvertService.shared.convertUnixTimeToDate(from: new.date)
+                self.bodyLabel.text = new.text
+                self.itemInfoBar.set(with: new)
+            }
         }
     }
+    
     
     
     override func updateConstraints() {

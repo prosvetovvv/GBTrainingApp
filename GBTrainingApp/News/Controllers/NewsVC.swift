@@ -12,7 +12,8 @@ import CoreData
 class NewsVC: UIViewController {
     
     let rootView = NewsView()
-    var fetchedResultsController: NSFetchedResultsController<News>!
+    var fetchedNewsRC: NSFetchedResultsController<News>!
+    var fetchedFriendRC: NSFetchedResultsController<MyFriend>!
     var dataSource: UITableViewDiffableDataSource<Int, News>!
     
     
@@ -26,7 +27,7 @@ class NewsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewController()
-        setupFetchedResultController()
+        setupFetchedNewsRC()
         setupTableView()
         updateTableContent()
     }
@@ -60,29 +61,30 @@ class NewsVC: UIViewController {
     
     // MARK: - CoreData
     
-    private func setupFetchedResultController() {
+    private func setupFetchedNewsRC() {
         let fetchRequest: NSFetchRequest<News> = News.fetchRequest()
         let sort = NSSortDescriptor(key: #keyPath(News.date), ascending: true)
         fetchRequest.sortDescriptors = [sort]
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.shared.context, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultsController.delegate = self
+        fetchedNewsRC = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.shared.context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedNewsRC.delegate = self
         
         do {
-            try fetchedResultsController.performFetch()
+            try fetchedNewsRC.performFetch()
             updateSnapshot()
         } catch {
             print("Fetch failed")
         }
     }
     
+        
     
     // MARK: - Update Data
     
     private func updateTableContent() {
         do {
-            try fetchedResultsController.performFetch()
-            print("Count fetched News: \(String(describing: fetchedResultsController.sections?[0].numberOfObjects))")
+            try fetchedNewsRC.performFetch()
+            print("Count fetched News: \(String(describing: fetchedNewsRC.sections?[0].numberOfObjects))")
         } catch let error as NSError {
             print("Fetching error: \(error), \(error.userInfo)")
         }
@@ -93,7 +95,7 @@ class NewsVC: UIViewController {
     private func updateSnapshot() {
         var dataSourceSnapshot = NSDiffableDataSourceSnapshot<Int, News>()
         dataSourceSnapshot.appendSections([0])
-        dataSourceSnapshot.appendItems(fetchedResultsController.fetchedObjects ?? [])
+        dataSourceSnapshot.appendItems(fetchedNewsRC.fetchedObjects ?? [])
         DispatchQueue.main.async { self.dataSource.apply(dataSourceSnapshot, animatingDifferences: true)}
     }
     
@@ -105,8 +107,8 @@ class NewsVC: UIViewController {
             switch result {
             
             case .success(let news):
-                CoreDataService.shared.clearNews()
-                CoreDataService.shared.saveNews(from: news)
+                CoreDataNewsService.shared.clearNews()
+                CoreDataNewsService.shared.saveNews(from: news)
                 
             case .failure(let error):
                 print(error.rawValue)

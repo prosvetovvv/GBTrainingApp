@@ -128,8 +128,8 @@ class FriendsVC: UIViewController {
             switch result {
 
             case .success(let friends):
-                CoreDataService.shared.clearFriends()
-                CoreDataService.shared.saveFriends(from: friends)
+                CoreDataFriendsService.shared.clearFriends()
+                CoreDataFriendsService.shared.saveFriends(from: friends)
 
             case .failure(let error):
                 print(error.rawValue)

@@ -98,7 +98,7 @@ struct NetworkService {
     
     
     func getNews(completed: @escaping (Result<[New], ErrorMessage>) -> Void) {
-        let urlRequest = baseUrl + "/newsfeed.get?filter=post&access_token=\(token)&v=5.124"
+        let urlRequest = baseUrl + "/newsfeed.get?filter=post&source_ids=friends&access_token=\(token)&v=5.124"
         print(urlRequest)
         
         guard let url = URL(string: urlRequest) else {

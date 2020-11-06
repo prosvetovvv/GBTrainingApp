@@ -8,9 +8,9 @@
 import UIKit
 import CoreData
 
-struct CoreDataService {
+struct CoreDataFriendsService {
     
-    static let shared = CoreDataService()
+    static let shared = CoreDataFriendsService()
     let storeStack    = CoreDataStack.shared
     
     private init() {}
@@ -47,34 +47,17 @@ struct CoreDataService {
     }
     
     
-    func saveNews(from arrayNews: [New]) {
+    func getFriend(by friendId: Int64) -> MyFriend? {
         let context = storeStack.context
+        let fetchRequest: NSFetchRequest<MyFriend> = MyFriend.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %i", friendId)
         
-        for new in arrayNews {
-            let news = News(context: context)
-            
-            news.sourceId = new.sourceId
-            news.date = new.date
-            news.text = new.text
-            news.likes = new.likes?.count ?? 0
-            news.comments = new.comments?.count ?? 0
-            news.reposts = new.reposts?.count ?? 0
-            news.show = new.views?.count ?? 0
-        }
-        storeStack.saveContext()
-    }
-    
-    
-    func clearNews() {
-        let context = storeStack.context
-        let fetchRequest: NSFetchRequest<News> = News.fetchRequest()
         do {
-            let object = try context.fetch(fetchRequest)
-            _ = object.map{context.delete($0)}
-            storeStack.saveContext()
-        } catch let error {
-            print(error)
-        }
+            let fetchedResult = try context.fetch(fetchRequest)
+            guard !fetchedResult.isEmpty else { return nil }
+            return fetchedResult[0]
+        } catch { return nil }
+        
     }
     
     
