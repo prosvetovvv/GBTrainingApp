@@ -42,15 +42,18 @@ struct NetworkService {
                 return
             }
             
-            do {
-                let decoder = JSONDecoder()
-                let friendsResponse = try decoder.decode(FriendsResponse.self, from: data)
-                let friends = friendsResponse.response.items
-                DispatchQueue.main.async { completed(.success(friends)) }
-            } catch {
-                print(error)
-                completed(.failure(.invalidData))
-                return
+            DispatchQueue.global(qos: .userInitiated).async {
+                
+                do {
+                    let decoder = JSONDecoder()
+                    let friendsResponse = try decoder.decode(FriendsResponse.self, from: data)
+                    let friends = friendsResponse.response.items
+                    completed(.success(friends))
+                } catch {
+                    print(error)
+                    completed(.failure(.invalidData))
+                    return
+                }
             }
         }
         
@@ -81,15 +84,18 @@ struct NetworkService {
                 return
             }
             
-            do {
-                let decoder = JSONDecoder()
-                let photosResponse = try decoder.decode(PhotosResponse.self, from: data)
-                let photosResponseStruct = photosResponse.response
-                DispatchQueue.main.async { completed(.success(photosResponseStruct)) }
-            } catch {
-                print(error)
-                completed(.failure(.invalidData))
-                return
+            DispatchQueue.global(qos: .userInitiated).async {
+                
+                do {
+                    let decoder = JSONDecoder()
+                    let photosResponse = try decoder.decode(PhotosResponse.self, from: data)
+                    let photosResponseStruct = photosResponse.response
+                    completed(.success(photosResponseStruct))
+                } catch {
+                    print(error)
+                    completed(.failure(.invalidData))
+                    return
+                }
             }
         }
         
@@ -121,15 +127,18 @@ struct NetworkService {
                 return
             }
             
-            do {
-                let decoder = JSONDecoder()
-                let newsResponse = try decoder.decode(NewsResponse.self, from: data)
-                let newsResponseStruct = newsResponse.response.items
-                DispatchQueue.main.async { completed(.success(newsResponseStruct)) }
-            } catch {
-                print(error)
-                completed(.failure(.invalidData))
-                return
+            DispatchQueue.global(qos: .userInitiated).async {
+                
+                do {
+                    let decoder = JSONDecoder()
+                    let newsResponse = try decoder.decode(NewsResponse.self, from: data)
+                    let newsResponseStruct = newsResponse.response.items
+                    completed(.success(newsResponseStruct))
+                } catch {
+                    print(error)
+                    completed(.failure(.invalidData))
+                    return
+                }
             }
         }
         
