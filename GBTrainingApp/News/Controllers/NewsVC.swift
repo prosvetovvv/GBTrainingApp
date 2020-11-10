@@ -50,12 +50,7 @@ class NewsVC: UIViewController {
     
     private func setupTableView() {
         rootView.tableView.register(NewCell.self, forCellReuseIdentifier: NewCell.id)
-        dataSource = UITableViewDiffableDataSource<Int, News>(tableView: rootView.tableView, cellProvider: { (tableView, indexPath, new) -> UITableViewCell? in
-            let cell = tableView.dequeueReusableCell(withIdentifier: NewCell.id, for: indexPath) as! NewCell
-            cell.set(with: new)
-            return cell
-        })
-        updateSnapshot()
+        rootView.tableView.dataSource = self
     }
     
     
@@ -71,13 +66,12 @@ class NewsVC: UIViewController {
         
         do {
             try fetchedNewsRC.performFetch()
-            updateSnapshot()
+            //updateSnapshot()
         } catch {
             print("Fetch failed")
         }
     }
     
-        
     
     // MARK: - Update Data
     
@@ -107,8 +101,8 @@ class NewsVC: UIViewController {
             switch result {
             
             case .success(let news):
-                CoreDataNewsService.shared.clearNews()
-                CoreDataNewsService.shared.saveNews(from: news)
+                CoreDataNewsService.shared.clearNewsInPrivateQueue()
+                CoreDataNewsService.shared.saveNewsInPrivateQueue(from: news)
                 
             case .failure(let error):
                 print(error.rawValue)
@@ -120,11 +114,47 @@ class NewsVC: UIViewController {
 
 // MARK: - Extensions
 
-extension NewsVC: NSFetchedResultsControllerDelegate {
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        updateSnapshot()
+extension NewsVC: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return fetchedNewsRC.sections?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let sectionInfo = fetchedNewsRC.sections?[section] else { return 0 }
+        return sectionInfo.numberOfObjects
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: NewCell.id, for: indexPath) as! NewCell
+        let new = fetchedNewsRC.object(at: indexPath)
+        let friendId = new.sourceId
+        let friend = CoreDataFriendsService.shared.getFriend(by: friendId)
+        cell.set(new: new, by: friend)
+        
+        return cell
     }
 }
 
 
-
+extension NewsVC: NSFetchedResultsControllerDelegate {
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .insert:
+            rootView.tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        case .delete:
+            rootView.tableView.deleteRows(at: [indexPath!], with: .automatic)
+        default:
+            break
+        }
+    }
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        rootView.tableView.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        rootView.tableView.endUpdates()
+    }
+}

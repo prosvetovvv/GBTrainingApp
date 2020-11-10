@@ -16,33 +16,54 @@ struct CoreDataFriendsService {
     private init() {}
     
     
-    func saveFriends(from arrayFriends: [Friend]) {
+    func saveFriendInPrivateQueue(from arrayFriends: [Friend]) {
         let context = storeStack.context
+        let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateContext.parent = context
         
-        for friend in arrayFriends {
-            if friend.firstName == "DELETED" { continue }
-            let myFriend = MyFriend(context: context)
+        privateContext.perform {
+            for friend in arrayFriends {
+                if friend.firstName == "DELETED" { continue }
+                let myFriend = MyFriend(context: privateContext)
+                
+                myFriend.id         = friend.id
+                myFriend.firstName  = friend.firstName
+                myFriend.lastName   = friend.lastName
+                myFriend.city       = friend.city?.title
+                myFriend.avatarUrl  = friend.avatarUrl
+                myFriend.birthDate  = friend.birthData
+            }
             
-            myFriend.id         = friend.id
-            myFriend.firstName  = friend.firstName
-            myFriend.lastName   = friend.lastName
-            myFriend.city       = friend.city?.title
-            myFriend.avatarUrl  = friend.avatarUrl
-            myFriend.birthDate  = friend.birthData
+            do {
+                try privateContext.save()
+                context.performAndWait {
+                    storeStack.saveContext()
+                }
+            } catch { fatalError("Failure to save private context: \(error)") }
         }
-        storeStack.saveContext()
     }
     
     
-    func clearFriends() {
+    func clearFriendsInPrivateQueue() {
         let context = storeStack.context
+        let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateContext.parent = context
+        
         let fetchRequest: NSFetchRequest<MyFriend> = MyFriend.fetchRequest()
-        do {
-            let objects = try context.fetch(fetchRequest)
-            _ = objects.map{context.delete($0)}
-            storeStack.saveContext()
-        } catch let error {
-            print("Error deleting: \(error)")
+        
+        privateContext.perform {
+            do {
+                let objects = try privateContext.fetch(fetchRequest)
+                _ = objects.map{privateContext.delete($0)}
+                
+                do {
+                    try privateContext.save()
+                    context.performAndWait {
+                        storeStack.saveContext()
+                    }
+                } catch { fatalError("Failure to save private context: \(error)") }
+                
+            } catch let error { print("Error fetched: \(error)") }
         }
     }
     

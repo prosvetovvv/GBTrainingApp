@@ -41,12 +41,6 @@ class NewCell: UITableViewCell {
         setupScrollView()
         setupContainerView()
         
-        
-        //scrollView.addSubview(containerView)
-        //containerView.addSubview(bodyLabel)
-        
-        
-       
         needsUpdateConstraints()
     }
     
@@ -62,28 +56,27 @@ class NewCell: UITableViewCell {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(bodyLabel)
         
-        //addSubview(containerView)
-        
         scrollView.addSubview(containerView)
     }
     
     
-    func set(with new: News) {
-        if let newOwner = CoreDataFriendsService.shared.getFriend(by: new.sourceId) {
-            
-            DispatchQueue.main.async {
-                //self.avatarImageView.image = self.avatarPlaceholder
-                //self.avatarImageView.image = newOwner?.avatarUrl
-                //self.nameTitleLabel.text = String(new.sourceId)
-                NetworkService.shared.downloadAvatar(from: newOwner.avatarUrl, to: self.avatarImageView)
-                self.nameTitleLabel.text = "\(newOwner.firstName) \(newOwner.lastName)"
-                self.dateTitleLabel.text = ConvertService.shared.convertUnixTimeToDate(from: new.date)
-                self.bodyLabel.text = new.text
-                self.itemInfoBar.set(with: new)
+    func set(new: News, by friend: MyFriend?) {
+        
+        
+        DispatchQueue.main.async {
+            if let friend = friend {
+                NetworkService.shared.downloadAvatar(from: friend.avatarUrl, to: self.avatarImageView)
+                self.nameTitleLabel.text = "\(friend.firstName) \(friend.lastName)"
+            } else {
+                self.avatarImageView.image = self.avatarPlaceholder
+                self.nameTitleLabel.text = "Неизвестный"
             }
+            
+            self.dateTitleLabel.text = ConvertService.shared.convertUnixTimeToDate(from: new.date)
+            self.bodyLabel.text = new.text
+            self.itemInfoBar.set(with: new)
         }
     }
-    
     
     
     override func updateConstraints() {
@@ -118,7 +111,7 @@ class NewCell: UITableViewCell {
             containerView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             containerView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             containerView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
-
+            
             bodyLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
             bodyLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             bodyLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
