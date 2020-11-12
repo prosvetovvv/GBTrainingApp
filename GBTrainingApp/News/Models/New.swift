@@ -15,7 +15,7 @@ struct NewsResponse: Codable {
 
 struct NewsResponseStruct: Codable {
     let items: [New]
-    let nextFrom: String
+    let nextFrom: String?
     
     enum CodingKeys: String, CodingKey {
         case items
@@ -42,35 +42,32 @@ struct New: Codable {
 
 
 struct Comments: Codable {
-    let count: Int16
+    let count: Int64
     
     enum CodingKeys: String, CodingKey {
         case count
     }
 }
 
+
 struct Likes: Codable {
-    let count, userLikes, canLike, canPublish: Int16
+    let count: Int64
     
     enum CodingKeys: String, CodingKey {
         case count
-        case userLikes  = "user_likes"
-        case canLike    = "can_like"
-        case canPublish = "can_publish"
     }
 }
 
 
 struct Views: Codable {
-    let count: Int16
+    let count: Int64
 }
 
 
 struct Reposts: Codable {
-    let count, userReposted: Int16
+    let count: Int64
     
     enum CodingKeys: String, CodingKey {
         case count
-        case userReposted = "user_reposted"
     }
 }

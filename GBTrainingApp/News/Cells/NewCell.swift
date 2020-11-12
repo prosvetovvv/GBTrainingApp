@@ -14,7 +14,7 @@ class NewCell: UITableViewCell {
     let avatarImageView = VKAvatarImageView(frame: .zero)
     let nameTitleLabel  = VKTitleLabel(textAlignment: .left, fontSize: 22)
     let dateTitleLabel  = VKSecondaryTitleLabel(fontSize: 17)
-    let bodyLabel       = VKBodyLabel(textAlignment: .right)
+    let bodyLabel       = VKNewBodyLabel()
     let scrollView      = UIScrollView()
     let containerView   = UIView()
     let itemInfoBar     = VKItemInfoBar()
@@ -38,17 +38,40 @@ class NewCell: UITableViewCell {
         addSubview(dateTitleLabel)
         addSubview(itemInfoBar)
         
-        scrollView.addSubview(containerView)
-        containerView.addSubview(bodyLabel)
+        setupScrollView()
+        setupContainerView()
         
         needsUpdateConstraints()
     }
     
+    private func setupScrollView() {
+        scrollView.backgroundColor = .systemTeal
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(scrollView)
+    }
     
-    func set(with new: News) {
+    private func setupContainerView() {
+        containerView.backgroundColor = .systemPink
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(bodyLabel)
+        
+        scrollView.addSubview(containerView)
+    }
+    
+    
+    func set(new: News, by friend: MyFriend?) {
+        
+        
         DispatchQueue.main.async {
-            self.avatarImageView.image = self.avatarPlaceholder
-            self.nameTitleLabel.text = String(new.sourceId)
+            if let friend = friend {
+                NetworkService.shared.downloadAvatar(from: friend.avatarUrl, to: self.avatarImageView)
+                self.nameTitleLabel.text = "\(friend.firstName) \(friend.lastName)"
+            } else {
+                self.avatarImageView.image = self.avatarPlaceholder
+                self.nameTitleLabel.text = "Неизвестный"
+            }
+            
             self.dateTitleLabel.text = ConvertService.shared.convertUnixTimeToDate(from: new.date)
             self.bodyLabel.text = new.text
             self.itemInfoBar.set(with: new)
@@ -57,7 +80,6 @@ class NewCell: UITableViewCell {
     
     
     override func updateConstraints() {
-        super.updateConstraints()
         
         let padding: CGFloat            = 20
         let textImagePadding: CGFloat   = 12
@@ -80,7 +102,7 @@ class NewCell: UITableViewCell {
             
             scrollView.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: padding),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             scrollView.bottomAnchor.constraint(equalTo: itemInfoBar.topAnchor, constant: -padding),
             
             containerView.topAnchor.constraint(equalTo: scrollView.topAnchor),
@@ -90,15 +112,16 @@ class NewCell: UITableViewCell {
             containerView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             containerView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             
-            bodyLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            bodyLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            bodyLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
+            bodyLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             bodyLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            bodyLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -40),
             
             itemInfoBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             itemInfoBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            itemInfoBar.bottomAnchor.constraint(equalTo: bottomAnchor)
+            itemInfoBar.heightAnchor.constraint(equalToConstant: 20),
+            itemInfoBar.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -10)
         ])
+        super.updateConstraints()
     }
     
 }

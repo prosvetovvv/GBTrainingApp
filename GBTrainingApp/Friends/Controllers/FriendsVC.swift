@@ -16,7 +16,7 @@ class FriendsVC: UIViewController {
     var fetchedResultsController: NSFetchedResultsController<MyFriend>!
     var dataSource: UITableViewDiffableDataSource<Int, MyFriend>!
     
-        
+    
     override func loadView() {
         view = rootView
     }
@@ -126,11 +126,10 @@ class FriendsVC: UIViewController {
     private func getFriendsFromNetwork() {
         NetworkService.shared.getFriends() { result in
             switch result {
-
+            
             case .success(let friends):
-                CoreDataService.shared.clearFriends()
-                CoreDataService.shared.saveFriends(from: friends)
-
+                CoreDataFriendsService.shared.clearFriendsInPrivateQueue()
+                CoreDataFriendsService.shared.saveFriendInPrivateQueue(from: friends)
             case .failure(let error):
                 print(error.rawValue)
             }
