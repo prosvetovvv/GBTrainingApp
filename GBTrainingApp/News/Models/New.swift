@@ -32,10 +32,11 @@ struct New: Codable {
     let likes: Likes?
     let reposts: Reposts?
     let views: Views?
+    let attachments: [ItemAttachment]?
     
     enum CodingKeys: String, CodingKey {
         case sourceId = "source_id"
-        case date, text, comments, likes, reposts, views
+        case date, text, comments, likes, reposts, views, attachments
         
     }
 }
@@ -70,4 +71,9 @@ struct Reposts: Codable {
     enum CodingKeys: String, CodingKey {
         case count
     }
+}
+
+
+struct ItemAttachment: Codable {
+    let photo: PhotoItem?
 }

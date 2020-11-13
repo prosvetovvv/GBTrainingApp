@@ -8,16 +8,16 @@
 import Foundation
 import CoreData
 
-class CoreDataNewsService {
+class NewsServiceStore {
     
-    static let shared = CoreDataNewsService()
+    static let shared = NewsServiceStore()
     let storeStack    = CoreDataStack.shared
     
     
     private init() {}
     
     
-    func saveNewsInPrivateQueue(from arrayNews: [New]) {
+    func saveNews(from arrayNews: [New]) {
         let context = storeStack.context
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = context
@@ -26,13 +26,19 @@ class CoreDataNewsService {
             for new in arrayNews {
                 let news = News(context: privateContext)
                 
-                news.sourceId = new.sourceId
-                news.date = new.date
-                news.text = new.text
-                news.likes = new.likes?.count ?? 0
-                news.comments = new.comments?.count ?? 0
-                news.reposts = new.reposts?.count ?? 0
-                news.show = new.views?.count ?? 0
+                
+                if let attachments = new.attachments, let photo = attachments[0].photo {
+                    let indexPhotoMaxSize = photo.sizes.count - 1
+                    news.image = photo.sizes[indexPhotoMaxSize].url
+                }
+                
+                news.sourceId   = new.sourceId
+                news.date       = new.date
+                news.text       = new.text
+                news.likes      = new.likes?.count ?? 0
+                news.comments   = new.comments?.count ?? 0
+                news.reposts    = new.reposts?.count ?? 0
+                news.show       = new.views?.count ?? 0
             }
             
             do {
@@ -45,7 +51,7 @@ class CoreDataNewsService {
     }
     
     
-    func clearNewsInPrivateQueue() {
+    func clearNews() {
         let context = storeStack.context
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = context

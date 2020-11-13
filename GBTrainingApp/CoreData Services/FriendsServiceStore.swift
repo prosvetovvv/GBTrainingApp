@@ -8,15 +8,15 @@
 import UIKit
 import CoreData
 
-struct CoreDataFriendsService {
+struct FriendsServiceStore {
     
-    static let shared = CoreDataFriendsService()
+    static let shared = FriendsServiceStore()
     let storeStack    = CoreDataStack.shared
     
     private init() {}
     
     
-    func saveFriendInPrivateQueue(from arrayFriends: [Friend]) {
+    func saveFriend(from arrayFriends: [Friend]) {
         let context = storeStack.context
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = context
@@ -44,7 +44,7 @@ struct CoreDataFriendsService {
     }
     
     
-    func clearFriendsInPrivateQueue() {
+    func clearFriends() {
         let context = storeStack.context
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = context

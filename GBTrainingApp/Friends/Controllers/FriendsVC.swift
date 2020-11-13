@@ -128,8 +128,8 @@ class FriendsVC: UIViewController {
             switch result {
             
             case .success(let friends):
-                CoreDataFriendsService.shared.clearFriendsInPrivateQueue()
-                CoreDataFriendsService.shared.saveFriendInPrivateQueue(from: friends)
+                FriendsServiceStore.shared.clearFriends()
+                FriendsServiceStore.shared.saveFriend(from: friends)
             case .failure(let error):
                 print(error.rawValue)
             }

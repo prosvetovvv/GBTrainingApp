@@ -50,6 +50,7 @@ class NewsVC: UIViewController {
     
     private func setupTableView() {
         rootView.tableView.register(NewCell.self, forCellReuseIdentifier: NewCell.id)
+        rootView.tableView.register(TextAndImageCell.self, forCellReuseIdentifier: TextAndImageCell.id)
         rootView.tableView.dataSource = self
     }
     
@@ -101,8 +102,8 @@ class NewsVC: UIViewController {
             switch result {
             
             case .success(let news):
-                CoreDataNewsService.shared.clearNewsInPrivateQueue()
-                CoreDataNewsService.shared.saveNewsInPrivateQueue(from: news)
+                NewsServiceStore.shared.clearNews()
+                NewsServiceStore.shared.saveNews(from: news)
                 
             case .failure(let error):
                 print(error.rawValue)
@@ -125,13 +126,23 @@ extension NewsVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NewCell.id, for: indexPath) as! NewCell
         let new = fetchedNewsRC.object(at: indexPath)
-        let friendId = new.sourceId
-        let friend = CoreDataFriendsService.shared.getFriend(by: friendId)
-        cell.set(new: new, by: friend)
         
-        return cell
+        if new.image != nil {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TextAndImageCell.id, for: indexPath) as! TextAndImageCell
+            let friendId = new.sourceId
+            let friend = FriendsServiceStore.shared.getFriend(by: friendId)
+            cell.set(new: new, by: friend)
+            
+            return cell
+        }
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: NewCell.id, for: indexPath) as! NewCell
+            let friendId = new.sourceId
+            let friend = FriendsServiceStore.shared.getFriend(by: friendId)
+            cell.set(new: new, by: friend)
+
+            return cell
     }
 }
 

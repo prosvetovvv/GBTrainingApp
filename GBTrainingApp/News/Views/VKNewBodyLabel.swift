@@ -21,7 +21,6 @@ class VKNewBodyLabel: UILabel {
     
         
     private func setup() {
-        backgroundColor             = .systemTeal
         textAlignment               = .left
         textColor                   = .secondaryLabel
         font                        = UIFont.preferredFont(forTextStyle: .body)

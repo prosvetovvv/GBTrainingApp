@@ -2,7 +2,7 @@
 //  News+CoreDataProperties.swift
 //  GBTrainingApp
 //
-//  Created by Vitaly Prosvetov on 05.11.2020.
+//  Created by Vitaly Prosvetov on 13.11.2020.
 //
 //
 
@@ -25,6 +25,7 @@ extension News {
     @NSManaged public var show: Int64
     @NSManaged public var sourceId: Int64
     @NSManaged public var text: String?
+    @NSManaged public var image: String?
 
 }
 
