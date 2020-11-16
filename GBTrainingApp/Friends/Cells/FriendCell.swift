@@ -11,6 +11,7 @@ import UIKit
 class FriendCell: UITableViewCell {
     
     static let id = "FriendCell"
+    let networkService = NetworkService()
     
     let avatarImageView = VKAvatarImageView(frame: .zero)
     let nameTitleLabel  = VKTitleLabel(textAlignment: .left, fontSize: 22)
@@ -60,7 +61,7 @@ class FriendCell: UITableViewCell {
     
     func set(with friend: MyFriend) {
         DispatchQueue.main.async {
-            NetworkService.shared.downloadAvatar(from: friend.avatarUrl, to: self.avatarImageView)
+            self.networkService.downloadImage(from: friend.avatarUrl, to: self.avatarImageView)
             self.nameTitleLabel.text = "\(friend.firstName) \(friend.lastName)"
             self.cityTitleLabel.text = friend.city
         }

@@ -10,11 +10,7 @@ import CoreData
 
 class NewsServiceStore {
     
-    static let shared = NewsServiceStore()
     let storeStack    = CoreDataStack.shared
-    
-    
-    private init() {}
     
     
     func saveNews(from arrayNews: [New]) {

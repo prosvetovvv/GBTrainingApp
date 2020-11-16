@@ -10,10 +10,7 @@ import CoreData
 
 struct FriendsServiceStore {
     
-    static let shared = FriendsServiceStore()
     let storeStack    = CoreDataStack.shared
-    
-    private init() {}
     
     
     func saveFriend(from arrayFriends: [Friend]) {

@@ -10,13 +10,9 @@ import UIKit
 
 struct NetworkService {
     
-    static let shared   = NetworkService()
     private let baseUrl = "https://api.vk.com/method"
     let token           = Session.shared.token
     let cache           = NSCache<NSString, UIImage>()
-    
-    
-    private init() {}
     
     
     func getFriends(completed: @escaping (Result<[Friend], ErrorMessage>) -> Void) {
@@ -145,12 +141,12 @@ struct NetworkService {
         task.resume()
     }
     
-    func downloadAvatar(from urlString: String, to avatar: UIImageView) {
+    func downloadImage(from urlString: String, to imageView: UIImageView) {
         
         let cacheKey = NSString(string: urlString)
         
         if let image = cache.object(forKey: cacheKey) {
-            avatar.image = image
+            imageView.image = image
             return
         }
         
@@ -164,7 +160,7 @@ struct NetworkService {
             guard let image = UIImage(data: data) else { return }
             self.cache.setObject(image, forKey: cacheKey)
             
-            DispatchQueue.main.async { avatar.image = image }
+            DispatchQueue.main.async { imageView.image = image }
         }
         
         task.resume()

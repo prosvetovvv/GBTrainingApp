@@ -14,6 +14,7 @@ class FriendInfoVC: UIViewController {
     var friend: MyFriend!
     var photos: PhotosResponseStruct?
     var photosMaxSize = [String]()
+    let networkService = NetworkService()
     
     override func loadView() {
         super.loadView()
@@ -43,7 +44,7 @@ class FriendInfoVC: UIViewController {
     
     
     private func setup() {
-        NetworkService.shared.downloadAvatar(from: friend.avatarUrl, to: rootView.avatarImageView)
+        networkService.downloadImage(from: friend.avatarUrl, to: rootView.avatarImageView)
         rootView.nameLabel.text           = "\(friend.firstName) \(friend.lastName)"
         rootView.birthDateLabel.text      = friend.birthDate ?? ""
         rootView.cityLabel.text           = friend.city
@@ -52,7 +53,7 @@ class FriendInfoVC: UIViewController {
     
     private func getPhotoFromNetwork(for friend: String) {
         
-        NetworkService.shared.getPhotos(for: friend) { [ weak self ] result in
+        networkService.getPhotos(for: friend) { [ weak self ] result in
             guard let self = self else { return }
             
             switch result {

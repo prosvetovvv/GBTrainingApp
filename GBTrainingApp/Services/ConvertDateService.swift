@@ -1,20 +1,16 @@
 //
-//  ConvertService.swift
+//  ConvertDateService.swift
 //  GBTrainingApp
 //
-//  Created by Vitaly Prosvetov on 05.11.2020.
+//  Created by Vitaly Prosvetov on 16.11.2020.
 //
 
 import Foundation
 
-struct ConvertService {
-    
-    static let shared = ConvertService()
-    
-    private init() {}
-    
-    func convertUnixTimeToDate(from jsonResult: Int64) -> String {
-        let timeResult = Double(jsonResult)
+struct ConvertDateService {
+        
+    func convertUnixTime(from date: Int64) -> String {
+        let timeResult = Double(date)
         let date = Date(timeIntervalSince1970: timeResult)
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = DateFormatter.Style.medium

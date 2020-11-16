@@ -8,19 +8,21 @@
 import UIKit
 
 class TextAndImageCell: UITableViewCell {
-
-    static let id = "TextPhotocell"
     
-    let avatarImageView = VKAvatarImageView(frame: .zero)
-    let nameTitleLabel  = VKTitleLabel(textAlignment: .left, fontSize: 22)
-    let dateTitleLabel  = VKSecondaryTitleLabel(fontSize: 17)
-    let bodyLabel       = VKNewBodyLabel()
+    static let id = "TextAndImageCell"
+    
+    let avatarImageView     = VKAvatarImageView(frame: .zero)
+    let nameTitleLabel      = VKTitleLabel(textAlignment: .left, fontSize: 22)
+    let dateTitleLabel      = VKSecondaryTitleLabel(fontSize: 17)
+    let bodyLabel           = VKNewBodyLabel()
     let mainImageView       = UIImageView()
-    let itemInfoBar     = VKItemInfoBar()
+    let itemInfoBar         = VKItemInfoBar()
+    let networkService      = NetworkService()
+    let convertDateService  = ConvertDateService()
     
     let avatarPlaceholder: UIImage = UIImage(named: "placeholder")!
     
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -56,15 +58,15 @@ class TextAndImageCell: UITableViewCell {
     func set(new: News, by friend: MyFriend?) {
         DispatchQueue.main.async {
             if let friend = friend {
-                NetworkService.shared.downloadAvatar(from: friend.avatarUrl, to: self.avatarImageView)
+                self.networkService.downloadImage(from: friend.avatarUrl, to: self.avatarImageView)
                 self.nameTitleLabel.text = "\(friend.firstName) \(friend.lastName)"
             } else {
                 self.avatarImageView.image = self.avatarPlaceholder
                 self.nameTitleLabel.text = "Неизвестный автор"
             }
             
-            NetworkService.shared.downloadAvatar(from: new.image!, to: self.mainImageView)
-            self.dateTitleLabel.text = ConvertService.shared.convertUnixTimeToDate(from: new.date)
+            self.networkService.downloadImage(from: new.image!, to: self.mainImageView)
+            self.dateTitleLabel.text = self.convertDateService.convertUnixTime(from: new.date)
             self.bodyLabel.text = new.text
             self.itemInfoBar.set(with: new)
         }

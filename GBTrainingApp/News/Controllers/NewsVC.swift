@@ -15,6 +15,9 @@ class NewsVC: UIViewController {
     var fetchedNewsRC: NSFetchedResultsController<News>!
     var fetchedFriendRC: NSFetchedResultsController<MyFriend>!
     var dataSource: UITableViewDiffableDataSource<Int, News>!
+    let networkService = NetworkService()
+    let friendsServiceStore = FriendsServiceStore()
+    let newsServiceStore = NewsServiceStore()
     
     
     override func loadView() {
@@ -98,18 +101,19 @@ class NewsVC: UIViewController {
     // MARK: - Network
     
     private func  getNewsFromNetwork() {
-        NetworkService.shared.getNews() { result in
+        networkService.getNews() { [ unowned self ] result in
             switch result {
             
             case .success(let news):
-                NewsServiceStore.shared.clearNews()
-                NewsServiceStore.shared.saveNews(from: news)
+                self.newsServiceStore.clearNews()
+                self.newsServiceStore.saveNews(from: news)
                 
             case .failure(let error):
                 print(error.rawValue)
             }
         }
     }
+    
 }
 
 
@@ -131,7 +135,7 @@ extension NewsVC: UITableViewDataSource {
         if new.image != nil {
             let cell = tableView.dequeueReusableCell(withIdentifier: TextAndImageCell.id, for: indexPath) as! TextAndImageCell
             let friendId = new.sourceId
-            let friend = FriendsServiceStore.shared.getFriend(by: friendId)
+            let friend = friendsServiceStore.getFriend(by: friendId)
             cell.set(new: new, by: friend)
             
             return cell
@@ -139,7 +143,7 @@ extension NewsVC: UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: NewCell.id, for: indexPath) as! NewCell
             let friendId = new.sourceId
-            let friend = FriendsServiceStore.shared.getFriend(by: friendId)
+            let friend = friendsServiceStore.getFriend(by: friendId)
             cell.set(new: new, by: friend)
 
             return cell

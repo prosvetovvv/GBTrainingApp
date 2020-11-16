@@ -15,6 +15,8 @@ class FriendsVC: UIViewController {
     var currentSearchText = ""
     var fetchedResultsController: NSFetchedResultsController<MyFriend>!
     var dataSource: UITableViewDiffableDataSource<Int, MyFriend>!
+    let networkService = NetworkService()
+    let friendsServiceStore = FriendsServiceStore()
     
     
     override func loadView() {
@@ -124,12 +126,12 @@ class FriendsVC: UIViewController {
     //MARK: - Network
     
     private func getFriendsFromNetwork() {
-        NetworkService.shared.getFriends() { result in
+        networkService.getFriends() { [ unowned self ] result in
             switch result {
             
             case .success(let friends):
-                FriendsServiceStore.shared.clearFriends()
-                FriendsServiceStore.shared.saveFriend(from: friends)
+                self.friendsServiceStore.clearFriends()
+                self.friendsServiceStore.saveFriend(from: friends)
             case .failure(let error):
                 print(error.rawValue)
             }

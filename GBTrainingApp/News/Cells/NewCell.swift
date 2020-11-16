@@ -11,13 +11,15 @@ class NewCell: UITableViewCell {
     
     static let id = "NewCell"
     
-    let avatarImageView = VKAvatarImageView(frame: .zero)
-    let nameTitleLabel  = VKTitleLabel(textAlignment: .left, fontSize: 22)
-    let dateTitleLabel  = VKSecondaryTitleLabel(fontSize: 17)
-    let bodyLabel       = VKNewBodyLabel()
-    let scrollView      = UIScrollView()
-    let containerView   = UIView()
-    let itemInfoBar     = VKItemInfoBar()
+    let avatarImageView     = VKAvatarImageView(frame: .zero)
+    let nameTitleLabel      = VKTitleLabel(textAlignment: .left, fontSize: 22)
+    let dateTitleLabel      = VKSecondaryTitleLabel(fontSize: 17)
+    let bodyLabel           = VKNewBodyLabel()
+    let scrollView          = UIScrollView()
+    let containerView       = UIView()
+    let itemInfoBar         = VKItemInfoBar()
+    let networkService      = NetworkService()
+    let convertDateService  = ConvertDateService()
     
     let avatarPlaceholder: UIImage = UIImage(named: "placeholder")!
     
@@ -65,14 +67,13 @@ class NewCell: UITableViewCell {
         
         DispatchQueue.main.async {
             if let friend = friend {
-                NetworkService.shared.downloadAvatar(from: friend.avatarUrl, to: self.avatarImageView)
+                self.networkService.downloadImage(from: friend.avatarUrl, to: self.avatarImageView)
                 self.nameTitleLabel.text = "\(friend.firstName) \(friend.lastName)"
             } else {
                 self.avatarImageView.image = self.avatarPlaceholder
                 self.nameTitleLabel.text = "Неизвестный"
             }
-            
-            self.dateTitleLabel.text = ConvertService.shared.convertUnixTimeToDate(from: new.date)
+            self.dateTitleLabel.text = self.convertDateService.convertUnixTime(from: new.date)
             self.bodyLabel.text = new.text
             self.itemInfoBar.set(with: new)
         }
