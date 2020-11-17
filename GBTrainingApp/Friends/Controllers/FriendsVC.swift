@@ -15,7 +15,7 @@ class FriendsVC: UIViewController {
     var currentSearchText = ""
     var fetchedResultsController: NSFetchedResultsController<MyFriend>!
     var dataSource: UITableViewDiffableDataSource<Int, MyFriend>!
-    let networkService = NetworkService()
+    let friendsService = FriendsService()
     let friendsServiceStore = FriendsServiceStore()
     
     
@@ -126,7 +126,7 @@ class FriendsVC: UIViewController {
     //MARK: - Network
     
     private func getFriendsFromNetwork() {
-        networkService.getFriends() { [ unowned self ] result in
+        friendsService.getFriends() { [ unowned self ] result in
             switch result {
             
             case .success(let friends):

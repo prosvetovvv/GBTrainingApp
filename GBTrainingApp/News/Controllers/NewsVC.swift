@@ -15,7 +15,7 @@ class NewsVC: UIViewController {
     var fetchedNewsRC: NSFetchedResultsController<News>!
     var fetchedFriendRC: NSFetchedResultsController<MyFriend>!
     var dataSource: UITableViewDiffableDataSource<Int, News>!
-    let networkService = NetworkService()
+    let newsService = NewsService()
     let friendsServiceStore = FriendsServiceStore()
     let newsServiceStore = NewsServiceStore()
     
@@ -101,7 +101,7 @@ class NewsVC: UIViewController {
     // MARK: - Network
     
     private func  getNewsFromNetwork() {
-        networkService.getNews() { [ unowned self ] result in
+        newsService.getNews() { [ unowned self ] result in
             switch result {
             
             case .success(let news):

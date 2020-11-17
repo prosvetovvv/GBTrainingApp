@@ -18,7 +18,8 @@ class NewCell: UITableViewCell {
     let scrollView          = UIScrollView()
     let containerView       = UIView()
     let itemInfoBar         = VKItemInfoBar()
-    let networkService      = NetworkService()
+    
+    let photoService    = PhotoService()
     let convertDateService  = ConvertDateService()
     
     let avatarPlaceholder: UIImage = UIImage(named: "placeholder")!
@@ -67,7 +68,7 @@ class NewCell: UITableViewCell {
         
         DispatchQueue.main.async {
             if let friend = friend {
-                self.networkService.downloadImage(from: friend.avatarUrl, to: self.avatarImageView)
+                self.photoService.downloadPhoto(from: friend.avatarUrl, to: self.avatarImageView)
                 self.nameTitleLabel.text = "\(friend.firstName) \(friend.lastName)"
             } else {
                 self.avatarImageView.image = self.avatarPlaceholder

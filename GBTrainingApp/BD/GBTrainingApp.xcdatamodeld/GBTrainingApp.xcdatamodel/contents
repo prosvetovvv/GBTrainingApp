@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19H15" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Group" representedClassName="Group" syncable="YES">
-        <attribute name="activity" optional="YES" attributeType="String"/>
-        <attribute name="groupId" optional="YES" attributeType="String"/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="20B29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Groups" representedClassName="Groups" syncable="YES">
+        <attribute name="avatarUrl" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
     <entity name="MyFriend" representedClassName="MyFriend" syncable="YES">
@@ -30,9 +30,9 @@
         <attribute name="userId" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Group" positionX="-54" positionY="18" width="128" height="88"/>
         <element name="MyFriend" positionX="-63" positionY="-18" width="128" height="133"/>
         <element name="News" positionX="-54" positionY="27" width="128" height="193"/>
         <element name="Photo" positionX="-63" positionY="9" width="128" height="73"/>
+        <element name="Groups" positionX="-54" positionY="90" width="128" height="14"/>
     </elements>
 </model>

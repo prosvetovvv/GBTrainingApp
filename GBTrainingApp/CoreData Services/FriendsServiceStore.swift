@@ -89,19 +89,7 @@ struct FriendsServiceStore {
         storeStack.saveContext()
     }
     
-    
-    func saveGroup(groupId: String, name: String, activity: String) {
-        let context = storeStack.context
-        let group = Group(context: context)
         
-        group.groupId = groupId
-        group.name = name
-        group.activity = activity
-        
-        storeStack.saveContext()
-    }
-    
-    
     func readFriendList() -> [MyFriend] {
         let context = storeStack.context
         
@@ -115,10 +103,4 @@ struct FriendsServiceStore {
         return (try? context.fetch(Photo.fetchRequest()) as? [Photo]) ?? []
     }
     
-    
-    func readGroupList() -> [Group] {
-        let context = storeStack.context
-        
-        return (try? context.fetch(Group.fetchRequest()) as? [Group]) ?? []
-    }
 }

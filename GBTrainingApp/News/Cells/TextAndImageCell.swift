@@ -17,7 +17,8 @@ class TextAndImageCell: UITableViewCell {
     let bodyLabel           = VKNewBodyLabel()
     let mainImageView       = UIImageView()
     let itemInfoBar         = VKItemInfoBar()
-    let networkService      = NetworkService()
+    
+    let photoService    = PhotoService()
     let convertDateService  = ConvertDateService()
     
     let avatarPlaceholder: UIImage = UIImage(named: "placeholder")!
@@ -58,14 +59,14 @@ class TextAndImageCell: UITableViewCell {
     func set(new: News, by friend: MyFriend?) {
         DispatchQueue.main.async {
             if let friend = friend {
-                self.networkService.downloadImage(from: friend.avatarUrl, to: self.avatarImageView)
+                self.photoService.downloadPhoto(from: friend.avatarUrl, to: self.avatarImageView)
                 self.nameTitleLabel.text = "\(friend.firstName) \(friend.lastName)"
             } else {
                 self.avatarImageView.image = self.avatarPlaceholder
                 self.nameTitleLabel.text = "Неизвестный автор"
             }
             
-            self.networkService.downloadImage(from: new.image!, to: self.mainImageView)
+            self.photoService.downloadPhoto(from: new.image!, to: self.mainImageView)
             self.dateTitleLabel.text = self.convertDateService.convertUnixTime(from: new.date)
             self.bodyLabel.text = new.text
             self.itemInfoBar.set(with: new)
