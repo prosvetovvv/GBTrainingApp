@@ -5,15 +5,14 @@
 //  Created by Vitaly Prosvetov on 08.10.2020.
 //
 
-import UIKit
 import CoreData
 
 struct FriendsServiceStore {
     
-    let storeStack    = CoreDataStack.shared
+    let storeStack = CoreDataStack.shared
     
     
-    func saveFriend(from arrayFriends: [Friend]) {
+    func saveFriends(from arrayFriends: [Friend]) {
         let context = storeStack.context
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = context

@@ -131,7 +131,7 @@ class FriendsVC: UIViewController {
             
             case .success(let friends):
                 self.friendsServiceStore.clearFriends()
-                self.friendsServiceStore.saveFriend(from: friends)
+                self.friendsServiceStore.saveFriends(from: friends)
             case .failure(let error):
                 print(error.rawValue)
             }

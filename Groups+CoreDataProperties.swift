@@ -16,9 +16,9 @@ extension Groups {
         return NSFetchRequest<Groups>(entityName: "Groups")
     }
 
-    @NSManaged public var name: String?
+    @NSManaged public var name: String
     @NSManaged public var id: Int64
-    @NSManaged public var avatarUrl: String?
+    @NSManaged public var avatarUrl: String
 
 }
 

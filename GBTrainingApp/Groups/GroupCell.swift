@@ -52,7 +52,10 @@ class GroupCell: UITableViewCell {
     
     
     func set(with group: Groups) {
-        
+        DispatchQueue.main.async {
+            self.photoService.downloadPhoto(from: group.avatarUrl, to: self.avatarImageView)
+            self.nameTitleLabel.text = group.name
+        }
     }
 
 }

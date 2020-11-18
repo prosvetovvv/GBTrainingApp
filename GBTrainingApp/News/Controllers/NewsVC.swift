@@ -13,8 +13,6 @@ class NewsVC: UIViewController {
     
     let rootView = NewsView()
     var fetchedNewsRC: NSFetchedResultsController<News>!
-    var fetchedFriendRC: NSFetchedResultsController<MyFriend>!
-    var dataSource: UITableViewDiffableDataSource<Int, News>!
     let newsService = NewsService()
     let friendsServiceStore = FriendsServiceStore()
     let newsServiceStore = NewsServiceStore()
@@ -29,10 +27,10 @@ class NewsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViewController()
-        setupFetchedNewsRC()
+        setupSelf()
         setupTableView()
-        updateTableContent()
+        setupFetchedNewsRC()
+        getNewsFromNetwork()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,7 +43,7 @@ class NewsVC: UIViewController {
     
     // MARK: - Settings
     
-    private func setupViewController() {
+    private func setupSelf() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -70,31 +68,10 @@ class NewsVC: UIViewController {
         
         do {
             try fetchedNewsRC.performFetch()
-            //updateSnapshot()
+            print("Count fetched News: \(String(describing: fetchedNewsRC.sections?[0].numberOfObjects))")
         } catch {
             print("Fetch failed")
         }
-    }
-    
-    
-    // MARK: - Update Data
-    
-    private func updateTableContent() {
-        do {
-            try fetchedNewsRC.performFetch()
-            print("Count fetched News: \(String(describing: fetchedNewsRC.sections?[0].numberOfObjects))")
-        } catch let error as NSError {
-            print("Fetching error: \(error), \(error.userInfo)")
-        }
-        getNewsFromNetwork()
-    }
-    
-    
-    private func updateSnapshot() {
-        var dataSourceSnapshot = NSDiffableDataSourceSnapshot<Int, News>()
-        dataSourceSnapshot.appendSections([0])
-        dataSourceSnapshot.appendItems(fetchedNewsRC.fetchedObjects ?? [])
-        DispatchQueue.main.async { self.dataSource.apply(dataSourceSnapshot, animatingDifferences: true)}
     }
     
     
@@ -120,10 +97,6 @@ class NewsVC: UIViewController {
 // MARK: - Extensions
 
 extension NewsVC: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedNewsRC.sections?.count ?? 0
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sectionInfo = fetchedNewsRC.sections?[section] else { return 0 }
         return sectionInfo.numberOfObjects
