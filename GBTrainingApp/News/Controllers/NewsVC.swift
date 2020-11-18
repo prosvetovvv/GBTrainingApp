@@ -81,9 +81,9 @@ class NewsVC: UIViewController {
         newsService.getNews() { [ unowned self ] result in
             switch result {
             
-            case .success(let news):
+            case .success(let newsResponse):
                 self.newsServiceStore.clearNews()
-                self.newsServiceStore.saveNews(from: news)
+                self.newsServiceStore.saveNews(from: newsResponse)
                 
             case .failure(let error):
                 print(error.rawValue)

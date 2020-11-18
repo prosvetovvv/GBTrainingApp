@@ -13,7 +13,7 @@ struct NewsService {
     let token           = Session.shared.token
     
     
-    func getNews(completed: @escaping (Result<[New], ErrorMessage>) -> Void) {
+    func getNews(completed: @escaping (Result<NewsResponseStruct, ErrorMessage>) -> Void) {
         let urlRequest = baseUrl + "/newsfeed.get?filter=post&source_ids=friends&access_token=\(token)&v=5.124"
         print(urlRequest)
         
@@ -42,7 +42,7 @@ struct NewsService {
                 do {
                     let decoder = JSONDecoder()
                     let newsResponse = try decoder.decode(NewsResponse.self, from: data)
-                    let newsResponseStruct = newsResponse.response.items
+                    let newsResponseStruct = newsResponse.response
                     completed(.success(newsResponseStruct))
                 } catch {
                     print(error)
