@@ -282,7 +282,6 @@
 				E10B48F82546BCF6008C1D4A /* Custom Views */,
 				E10B48F92546BD14008C1D4A /* Controllers */,
 				E1D3D32B252F0A4A002EF01E /* Cells */,
-				E1D3D335252F0A5C002EF01E /* Models */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -447,7 +446,6 @@
 				E1D3D32A252F0A4A002EF01E /* Custom Views */,
 				E1D3D322252F0A43002EF01E /* Utilities */,
 				E1D3D31C252F0A3B002EF01E /* Services */,
-				E1D3D303252F096F002EF01E /* Controllers */,
 				E1D3D2FC252F0939002EF01E /* Support */,
 			);
 			path = GBTrainingApp;
@@ -482,13 +480,6 @@
 				E1D3D2CC252F07CA002EF01E /* Assets.xcassets */,
 			);
 			path = Support;
-			sourceTree = "<group>";
-		};
-		E1D3D303252F096F002EF01E /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		E1D3D314252F0A25002EF01E /* Views */ = {
@@ -540,13 +531,6 @@
 				E1D3D32C252F0A4A002EF01E /* FriendCell.swift */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		E1D3D335252F0A5C002EF01E /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		E1D3D341252F24CC002EF01E /* DB */ = {
