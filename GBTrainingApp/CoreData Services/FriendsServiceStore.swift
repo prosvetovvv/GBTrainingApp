@@ -5,18 +5,14 @@
 //  Created by Vitaly Prosvetov on 08.10.2020.
 //
 
-import UIKit
 import CoreData
 
-struct CoreDataFriendsService {
+struct FriendsServiceStore {
     
-    static let shared = CoreDataFriendsService()
-    let storeStack    = CoreDataStack.shared
-    
-    private init() {}
+    let storeStack = CoreDataStack.shared
     
     
-    func saveFriendInPrivateQueue(from arrayFriends: [Friend]) {
+    func saveFriends(from arrayFriends: [Friend]) {
         let context = storeStack.context
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = context
@@ -44,7 +40,7 @@ struct CoreDataFriendsService {
     }
     
     
-    func clearFriendsInPrivateQueue() {
+    func clearFriends() {
         let context = storeStack.context
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = context
@@ -92,19 +88,7 @@ struct CoreDataFriendsService {
         storeStack.saveContext()
     }
     
-    
-    func saveGroup(groupId: String, name: String, activity: String) {
-        let context = storeStack.context
-        let group = Group(context: context)
         
-        group.groupId = groupId
-        group.name = name
-        group.activity = activity
-        
-        storeStack.saveContext()
-    }
-    
-    
     func readFriendList() -> [MyFriend] {
         let context = storeStack.context
         
@@ -118,10 +102,4 @@ struct CoreDataFriendsService {
         return (try? context.fetch(Photo.fetchRequest()) as? [Photo]) ?? []
     }
     
-    
-    func readGroupList() -> [Group] {
-        let context = storeStack.context
-        
-        return (try? context.fetch(Group.fetchRequest()) as? [Group]) ?? []
-    }
 }

@@ -13,8 +13,9 @@ class NewsVC: UIViewController {
     
     let rootView = NewsView()
     var fetchedNewsRC: NSFetchedResultsController<News>!
-    var fetchedFriendRC: NSFetchedResultsController<MyFriend>!
-    var dataSource: UITableViewDiffableDataSource<Int, News>!
+    let newsService = NewsService()
+    let friendsServiceStore = FriendsServiceStore()
+    let newsServiceStore = NewsServiceStore()
     
     
     override func loadView() {
@@ -26,10 +27,10 @@ class NewsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViewController()
-        setupFetchedNewsRC()
+        setupSelf()
         setupTableView()
-        updateTableContent()
+        setupFetchedNewsRC()
+        getNewsFromNetwork()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +43,7 @@ class NewsVC: UIViewController {
     
     // MARK: - Settings
     
-    private func setupViewController() {
+    private func setupSelf() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -50,6 +51,7 @@ class NewsVC: UIViewController {
     
     private func setupTableView() {
         rootView.tableView.register(NewCell.self, forCellReuseIdentifier: NewCell.id)
+        rootView.tableView.register(TextAndImageCell.self, forCellReuseIdentifier: TextAndImageCell.id)
         rootView.tableView.dataSource = self
     }
     
@@ -66,72 +68,58 @@ class NewsVC: UIViewController {
         
         do {
             try fetchedNewsRC.performFetch()
-            //updateSnapshot()
+            print("Count fetched News: \(String(describing: fetchedNewsRC.sections?[0].numberOfObjects))")
         } catch {
             print("Fetch failed")
         }
     }
     
     
-    // MARK: - Update Data
-    
-    private func updateTableContent() {
-        do {
-            try fetchedNewsRC.performFetch()
-            print("Count fetched News: \(String(describing: fetchedNewsRC.sections?[0].numberOfObjects))")
-        } catch let error as NSError {
-            print("Fetching error: \(error), \(error.userInfo)")
-        }
-        getNewsFromNetwork()
-    }
-    
-    
-    private func updateSnapshot() {
-        var dataSourceSnapshot = NSDiffableDataSourceSnapshot<Int, News>()
-        dataSourceSnapshot.appendSections([0])
-        dataSourceSnapshot.appendItems(fetchedNewsRC.fetchedObjects ?? [])
-        DispatchQueue.main.async { self.dataSource.apply(dataSourceSnapshot, animatingDifferences: true)}
-    }
-    
-    
     // MARK: - Network
     
     private func  getNewsFromNetwork() {
-        NetworkService.shared.getNews() { result in
+        newsService.getNews() { [ unowned self ] result in
             switch result {
             
-            case .success(let news):
-                CoreDataNewsService.shared.clearNewsInPrivateQueue()
-                CoreDataNewsService.shared.saveNewsInPrivateQueue(from: news)
+            case .success(let newsResponse):
+                self.newsServiceStore.clearNews()
+                self.newsServiceStore.saveNews(from: newsResponse)
                 
             case .failure(let error):
                 print(error.rawValue)
             }
         }
     }
+    
 }
 
 
 // MARK: - Extensions
 
 extension NewsVC: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedNewsRC.sections?.count ?? 0
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sectionInfo = fetchedNewsRC.sections?[section] else { return 0 }
         return sectionInfo.numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NewCell.id, for: indexPath) as! NewCell
         let new = fetchedNewsRC.object(at: indexPath)
-        let friendId = new.sourceId
-        let friend = CoreDataFriendsService.shared.getFriend(by: friendId)
-        cell.set(new: new, by: friend)
         
-        return cell
+        if new.image != nil {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TextAndImageCell.id, for: indexPath) as! TextAndImageCell
+            let friendId = new.sourceId
+            let friend = friendsServiceStore.getFriend(by: friendId)
+            cell.set(new: new, by: friend)
+            
+            return cell
+        }
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: NewCell.id, for: indexPath) as! NewCell
+            let friendId = new.sourceId
+            let friend = friendsServiceStore.getFriend(by: friendId)
+            cell.set(new: new, by: friend)
+
+            return cell
     }
 }
 
