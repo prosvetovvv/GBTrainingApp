@@ -12,10 +12,6 @@ class NewsServiceStore {
     
     let storeStack = CoreDataStack.shared
     
-    enum Date {
-        case avatarUrl, name
-    }
-    
     func saveNews(from newsResponse: NewsResponseStruct) {
         let context = storeStack.context
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -31,7 +27,7 @@ class NewsServiceStore {
                     news.avatarUrl  = self.getGroupAvatarUrl(by: abs(new.sourceId) , from: newsResponse.groups)
                 } else {
                     news.name       = self.getFriendName(by: new.sourceId, from: newsResponse.profiles)
-                    news.avatarUrl  = self.getGroupAvatarUrl(by: new.sourceId, from: newsResponse.groups)
+                    news.avatarUrl  = self.getFriendAvatarUrl(by: new.sourceId, from: newsResponse.profiles)
                 }
 
                 if let attachments = new.attachments {
@@ -84,7 +80,7 @@ class NewsServiceStore {
     private func getPhoto(from attachments: [ItemAttachment]) -> [String]? {
         var resultArray = [String]()
         for attachment in attachments {
-            if  attachment.type == .photo {
+            if  attachment.type == "photo" {
                 let photo = attachment.photo!.sizes.last!.url
                 resultArray.append(photo)
             }
@@ -132,29 +128,5 @@ class NewsServiceStore {
         return nil
     }
     
-    private func getValue(for row: Date, by sourceId: Int64, from profiles: [Profile], or groups: [Group]) -> String? {
-        var name: String? = nil
-        var avatarUrl: String? = nil
-        
-        for profile in profiles {
-            if sourceId == profile.id {
-                name = "\(profile.firstName) \(profile.lastName)"
-                avatarUrl = profile.avatarUrl
-            }
-        }
-        for group in groups {
-            if sourceId == group.id {
-                name = group.name
-                avatarUrl = group.avatarUrl
-            }
-        }
-        
-        switch row {
-        case .avatarUrl:
-            return avatarUrl
-        case .name:
-            return name
-        }
-    }
 }
 

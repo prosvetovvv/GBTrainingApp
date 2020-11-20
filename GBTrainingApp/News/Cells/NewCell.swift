@@ -63,19 +63,14 @@ class NewCell: UITableViewCell {
     }
     
     
-    func set(new: News, by friend: MyFriend?) {
-        
-        
+    func set(new: News) {
         DispatchQueue.main.async {
-            if let friend = friend {
-                self.photoService.downloadPhoto(from: friend.avatarUrl, to: self.avatarImageView)
-                self.nameTitleLabel.text = "\(friend.firstName) \(friend.lastName)"
-            } else {
-                self.avatarImageView.image = self.avatarPlaceholder
-                self.nameTitleLabel.text = "Неизвестный"
+            if let avatarUrl = new.avatarUrl {
+                self.photoService.downloadPhoto(from: avatarUrl, to: self.avatarImageView)
             }
-            self.dateTitleLabel.text = self.convertDateService.convertUnixTime(from: new.date)
-            self.bodyLabel.text = new.text
+            self.nameTitleLabel.text    = new.name
+            self.bodyLabel.text         = new.text
+            self.dateTitleLabel.text    = self.convertDateService.convertUnixTime(from: new.date)
             self.itemInfoBar.set(with: new)
         }
     }

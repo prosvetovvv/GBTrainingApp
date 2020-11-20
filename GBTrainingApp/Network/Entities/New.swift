@@ -68,15 +68,8 @@ struct Reposts: Codable {
 }
 
 struct ItemAttachment: Codable {
-    let type: AttachmentType
+    let type: String
     let photo: PhotoItem?
-}
-
-enum AttachmentType: String, Codable {
-    case audio = "audio"
-        case link = "link"
-        case photo = "photo"
-        case video = "video"
 }
 
 struct Profile: Codable {

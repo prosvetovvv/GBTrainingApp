@@ -104,24 +104,9 @@ extension NewsVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let new = fetchedNewsRC.object(at: indexPath)
-        
-        debugPrint(new.sourceId)
-        debugPrint(new.photos)
-        
-        if new.image != nil {
             let cell = tableView.dequeueReusableCell(withIdentifier: TextAndImageCell.id, for: indexPath) as! TextAndImageCell
-            let friendId = new.sourceId
-            let friend = friendsServiceStore.getFriend(by: friendId)
-            cell.set(new: new, by: friend)
+            cell.set(new: new)
             
-            return cell
-        }
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: NewCell.id, for: indexPath) as! NewCell
-            let friendId = new.sourceId
-            let friend = friendsServiceStore.getFriend(by: friendId)
-            cell.set(new: new, by: friend)
-
             return cell
     }
 }

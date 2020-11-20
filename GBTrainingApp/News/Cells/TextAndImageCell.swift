@@ -42,33 +42,32 @@ class TextAndImageCell: UITableViewCell {
         addSubview(bodyLabel)
         addSubview(itemInfoBar)
         
+        setupAvatarImageView()
         setupMainImage()
         
         needsUpdateConstraints()
     }
     
+    private func setupAvatarImageView() {
+        avatarImageView.image = avatarPlaceholder
+    }
     
     private func setupMainImage() {
         mainImageView.backgroundColor   = .systemGray
         mainImageView.contentMode       = .scaleAspectFit
         mainImageView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         addSubview(mainImageView)
     }
-    
-    func set(new: News, by friend: MyFriend?) {
+        
+    func set(new: News) {
         DispatchQueue.main.async {
-            if let friend = friend {
-                self.photoService.downloadPhoto(from: friend.avatarUrl, to: self.avatarImageView)
-                self.nameTitleLabel.text = "\(friend.firstName) \(friend.lastName)"
-            } else {
-                self.avatarImageView.image = self.avatarPlaceholder
-                self.nameTitleLabel.text = "Неизвестный автор"
+            if let avatarUrl = new.avatarUrl {
+                self.photoService.downloadPhoto(from: avatarUrl, to: self.avatarImageView)
             }
-            
-            self.photoService.downloadPhoto(from: new.image!, to: self.mainImageView)
-            self.dateTitleLabel.text = self.convertDateService.convertUnixTime(from: new.date)
-            self.bodyLabel.text = new.text
+            self.nameTitleLabel.text    = new.name
+            self.bodyLabel.text         = new.text
+            self.dateTitleLabel.text    = self.convertDateService.convertUnixTime(from: new.date)
             self.itemInfoBar.set(with: new)
         }
     }
