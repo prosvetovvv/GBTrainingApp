@@ -20,9 +20,13 @@ class NewsServiceStore {
         privateContext.perform {
             
             for new in newsResponse.items {
-                let news = News(context: privateContext)
                 
-                //if new.text == nil, new.attachments == nil { continue }
+                if new.text == nil, new.attachments == nil {
+                    debugPrint("Мимо")
+                    continue
+                }
+                
+                let news = News(context: privateContext)
                 
                 if new.sourceId < 0 {
                     news.name       = self.getGroupName(by: abs(new.sourceId), from: newsResponse.groups)
