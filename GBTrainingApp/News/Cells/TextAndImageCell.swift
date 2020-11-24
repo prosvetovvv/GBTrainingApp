@@ -11,11 +11,15 @@ class TextAndImageCell: UITableViewCell {
     
     static let id = "TextAndImageCell"
     
+    let padding: CGFloat            = 20
+    let textImagePadding: CGFloat   = 12
+    
     let avatarImageView     = VKAvatarImageView(frame: .zero)
     let nameTitleLabel      = VKTitleLabel(textAlignment: .left, fontSize: 22)
     let dateTitleLabel      = VKSecondaryTitleLabel(fontSize: 17)
     let bodyLabel           = VKNewBodyLabel()
-    let mainImageView       = UIImageView()
+    //let mainImageView       = UIImageView()
+    let photosStackView     = UIStackView()
     let itemInfoBar         = VKItemInfoBar()
     
     let photoService    = PhotoService()
@@ -43,7 +47,8 @@ class TextAndImageCell: UITableViewCell {
         addSubview(itemInfoBar)
         
         setupAvatarImageView()
-        setupMainImage()
+        setupPhotosStackView()
+        //setupMainImage()
         
         needsUpdateConstraints()
     }
@@ -52,12 +57,26 @@ class TextAndImageCell: UITableViewCell {
         avatarImageView.image = avatarPlaceholder
     }
     
-    private func setupMainImage() {
-        mainImageView.backgroundColor   = .systemGray
-        mainImageView.contentMode       = .scaleAspectFit
-        mainImageView.translatesAutoresizingMaskIntoConstraints = false
-
-        addSubview(mainImageView)
+//    private func setupMainImage() {
+//        mainImageView.backgroundColor   = .systemGray
+//        mainImageView.contentMode       = .scaleAspectFit
+//        mainImageView.translatesAutoresizingMaskIntoConstraints = false
+//
+//        addSubview(mainImageView)
+//    }
+    
+    private func setupPhotosStackView() {
+        photosStackView.spacing     = 10
+        //photosStackView.alignment   = .center
+        photosStackView.distribution = .fillEqually
+        photosStackView.axis        = NSLayoutConstraint.Axis.horizontal
+        photosStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        for view in photosStackView.arrangedSubviews {
+            photosStackView.removeArrangedSubview(view)
+        }
+        
+        addSubview(photosStackView)
     }
         
     func set(new: News) {
@@ -65,19 +84,35 @@ class TextAndImageCell: UITableViewCell {
             if let avatarUrl = new.avatarUrl {
                 self.photoService.downloadPhoto(from: avatarUrl, to: self.avatarImageView)
             }
+            debugPrint("Photos from controller: ", new.photos.count)
+            self.addPhotoToStackView(from: new.photos)
+           
+//                let image = UIImageView(image: self.avatarPlaceholder)
+//                self.photosStackView.addArrangedSubview(image)
+            
             self.nameTitleLabel.text    = new.name
-            self.bodyLabel.text         = new.text
+            self.bodyLabel.text         = new.text ?? "!!!!!!!!!"
             self.dateTitleLabel.text    = self.convertDateService.convertUnixTime(from: new.date)
             self.itemInfoBar.set(with: new)
         }
     }
-    
-    
+        
+    private func addPhotoToStackView(from photos: [String]) {
+        var arrPhoto = [UIImageView]()
+        debugPrint("Before remove stack: ", photosStackView.arrangedSubviews.count)
+        
+        for photo in photos {
+            let photoImageView = UIImageView()
+            self.photoService.downloadPhoto(from: photo, to: photoImageView)
+            arrPhoto.append(photoImageView)
+        }
+        debugPrint("Photos in stack: ", arrPhoto.count, arrPhoto)
+        for view in arrPhoto {
+            photosStackView.addArrangedSubview(view)
+        }
+    }
+
     override func updateConstraints() {
-        
-        let padding: CGFloat            = 20
-        let textImagePadding: CGFloat   = 12
-        
         NSLayoutConstraint.activate([
             avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: padding),
             avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
@@ -98,12 +133,17 @@ class TextAndImageCell: UITableViewCell {
             bodyLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             bodyLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             
-            mainImageView.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: padding),
-            mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            mainImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            mainImageView.heightAnchor.constraint(equalToConstant: 300),
+//            mainImageView.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: padding),
+//            mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+//            mainImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+//            mainImageView.heightAnchor.constraint(equalToConstant: 300),
             
-            itemInfoBar.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: padding),
+            photosStackView.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: padding),
+            photosStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            photosStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            photosStackView.heightAnchor.constraint(equalToConstant: 300),
+            
+            itemInfoBar.topAnchor.constraint(equalTo: photosStackView.bottomAnchor, constant: padding),
             itemInfoBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             itemInfoBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             itemInfoBar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)

@@ -104,10 +104,18 @@ extension NewsVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let new = fetchedNewsRC.object(at: indexPath)
+        
+        if !new.photos.isEmpty {
             let cell = tableView.dequeueReusableCell(withIdentifier: TextAndImageCell.id, for: indexPath) as! TextAndImageCell
             cell.set(new: new)
             
             return cell
+        }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: NewCell.id, for: indexPath) as! NewCell
+        cell.set(new: new)
+        
+        return cell
     }
 }
 

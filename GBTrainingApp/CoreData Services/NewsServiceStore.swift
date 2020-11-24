@@ -22,6 +22,8 @@ class NewsServiceStore {
             for new in newsResponse.items {
                 let news = News(context: privateContext)
                 
+                //if new.text == nil, new.attachments == nil { continue }
+                
                 if new.sourceId < 0 {
                     news.name       = self.getGroupName(by: abs(new.sourceId), from: newsResponse.groups)
                     news.avatarUrl  = self.getGroupAvatarUrl(by: abs(new.sourceId) , from: newsResponse.groups)
@@ -29,11 +31,11 @@ class NewsServiceStore {
                     news.name       = self.getFriendName(by: new.sourceId, from: newsResponse.profiles)
                     news.avatarUrl  = self.getFriendAvatarUrl(by: new.sourceId, from: newsResponse.profiles)
                 }
-
+            
                 if let attachments = new.attachments {
                     news.photos = self.getPhoto(from: attachments)
                 } else {
-                    news.photos = nil
+                    news.photos = [String]()
                 }
             
                 news.sourceId   = new.sourceId
@@ -77,7 +79,7 @@ class NewsServiceStore {
         }
     }
     
-    private func getPhoto(from attachments: [ItemAttachment]) -> [String]? {
+    private func getPhoto(from attachments: [ItemAttachment]) -> [String] {
         var resultArray = [String]()
         for attachment in attachments {
             if  attachment.type == "photo" {

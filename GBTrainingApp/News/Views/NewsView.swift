@@ -26,7 +26,7 @@ class NewsView: UIView {
     private func setup() {
         addSubview(tableView)
         
-        tableView.rowHeight = 300
+        //tableView.rowHeight = 300
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         setNeedsUpdateConstraints()
