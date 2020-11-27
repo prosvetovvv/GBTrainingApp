@@ -19,7 +19,6 @@ class AlertView: UIView {
     
     let padding: CGFloat = 20
     
-    
     init(title: String, message: String, buttonTitle: String) {
         super.init(frame: .zero)
         self.alertTitle     = title
@@ -29,14 +28,11 @@ class AlertView: UIView {
         setup()
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func updateConstraints() {
-        super.updateConstraints()
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: padding),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
@@ -53,6 +49,7 @@ class AlertView: UIView {
             actionButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             actionButton.heightAnchor.constraint(equalToConstant: 44)
         ])
+        super.updateConstraints()
     }
     
     

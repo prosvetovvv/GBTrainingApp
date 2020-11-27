@@ -11,7 +11,6 @@ struct GroupsServiceStore {
     
     let storeStack = CoreDataStack.shared
     
-    
     func saveGroups(from arrayGroups: [Group]) {
         let context = storeStack.context
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -34,7 +33,6 @@ struct GroupsServiceStore {
             } catch { fatalError("Failure to save private context: \(error)") }
         }
     }
-    
     
     func clearGroups() {
         let context = storeStack.context
@@ -70,5 +68,4 @@ struct GroupsServiceStore {
             return fetchResult.first
         } catch { return nil }
     }
-    
 }

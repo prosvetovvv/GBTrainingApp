@@ -21,10 +21,7 @@ class NewsServiceStore {
             
             for new in newsResponse.items {
                 
-                if new.text == nil, new.attachments == nil {
-                    debugPrint("Мимо")
-                    continue
-                }
+                if new.text == nil, new.attachments == nil { continue }
                 
                 let news = News(context: privateContext)
                 
@@ -41,7 +38,7 @@ class NewsServiceStore {
                 } else {
                     news.photos = [String]()
                 }
-            
+                
                 news.sourceId   = new.sourceId
                 news.date       = new.date
                 news.text       = new.text

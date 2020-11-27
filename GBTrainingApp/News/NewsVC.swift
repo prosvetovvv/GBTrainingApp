@@ -17,13 +17,11 @@ class NewsVC: UIViewController {
     let friendsServiceStore = FriendsServiceStore()
     let newsServiceStore = NewsServiceStore()
     
-    
     override func loadView() {
         super.loadView()
         
         view = rootView
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +38,6 @@ class NewsVC: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    
     // MARK: - Settings
     
     private func setupSelf() {
@@ -48,13 +45,11 @@ class NewsVC: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    
     private func setupTableView() {
         rootView.tableView.register(NewCell.self, forCellReuseIdentifier: NewCell.id)
         rootView.tableView.register(TextAndImageCell.self, forCellReuseIdentifier: TextAndImageCell.id)
         rootView.tableView.dataSource = self
     }
-    
     
     // MARK: - CoreData
     
@@ -92,7 +87,6 @@ class NewsVC: UIViewController {
     }
     
 }
-
 
 // MARK: - Extensions
 

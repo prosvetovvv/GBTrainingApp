@@ -29,39 +29,19 @@ class NewCell: UITableViewCell {
         setup()
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     private func setup() {
         addSubview(avatarImageView)
         addSubview(nameTitleLabel)
         addSubview(dateTitleLabel)
+        addSubview(bodyLabel)
         addSubview(itemInfoBar)
-        
-        setupScrollView()
-        setupContainerView()
         
         needsUpdateConstraints()
     }
-    
-    private func setupScrollView() {
-        scrollView.backgroundColor = .systemTeal
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
-        addSubview(scrollView)
-    }
-    
-    private func setupContainerView() {
-        containerView.backgroundColor = .systemPink
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(bodyLabel)
-        
-        scrollView.addSubview(containerView)
-    }
-    
     
     func set(new: News) {
         DispatchQueue.main.async {
@@ -74,7 +54,6 @@ class NewCell: UITableViewCell {
             self.itemInfoBar.set(with: new)
         }
     }
-    
     
     override func updateConstraints() {
         
@@ -96,27 +75,16 @@ class NewCell: UITableViewCell {
             dateTitleLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: textImagePadding),
             dateTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
             dateTitleLabel.heightAnchor.constraint(equalToConstant: 40),
+                        
+            bodyLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: padding),
+            bodyLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            bodyLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
+            bodyLabel.heightAnchor.constraint(equalToConstant: 50),
             
-            scrollView.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: padding),
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            scrollView.bottomAnchor.constraint(equalTo: itemInfoBar.topAnchor, constant: -padding),
-            
-            containerView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            containerView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            containerView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
-            
-            bodyLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
-            bodyLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            bodyLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            
+            itemInfoBar.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: padding),
             itemInfoBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             itemInfoBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            itemInfoBar.heightAnchor.constraint(equalToConstant: 20),
-            itemInfoBar.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -10)
+            itemInfoBar.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -30)
         ])
         super.updateConstraints()
     }

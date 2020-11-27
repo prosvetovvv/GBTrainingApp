@@ -21,7 +21,6 @@ class GroupsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     private func setup() {
         addSubview(tableView)
         
@@ -31,16 +30,13 @@ class GroupsView: UIView {
         setNeedsUpdateConstraints()
     }
     
-    
     override func updateConstraints() {
-        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: self.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
-        
         super.updateConstraints()
     }
 }

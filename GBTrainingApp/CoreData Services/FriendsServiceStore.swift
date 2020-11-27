@@ -11,7 +11,6 @@ struct FriendsServiceStore {
     
     let storeStack = CoreDataStack.shared
     
-    
     func saveFriends(from arrayFriends: [Friend]) {
         let context = storeStack.context
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -39,7 +38,6 @@ struct FriendsServiceStore {
         }
     }
     
-    
     func clearFriends() {
         let context = storeStack.context
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -63,7 +61,6 @@ struct FriendsServiceStore {
         }
     }
     
-    
     func getFriend(by friendId: Int64) -> MyFriend? {
         let context = storeStack.context
         let fetchRequest: NSFetchRequest<MyFriend> = MyFriend.fetchRequest()
@@ -77,7 +74,6 @@ struct FriendsServiceStore {
         
     }
     
-    
     func savePhoto(userId: String, photoUrl: String) {
         let context = storeStack.context
         let photo = Photo(context: context)
@@ -88,13 +84,11 @@ struct FriendsServiceStore {
         storeStack.saveContext()
     }
     
-        
     func readFriendList() -> [MyFriend] {
         let context = storeStack.context
         
         return (try? context.fetch(MyFriend.fetchRequest()) as? [MyFriend]) ?? []
     }
-    
     
     func readPhotoList() -> [Photo] {
         let context = storeStack.context

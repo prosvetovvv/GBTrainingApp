@@ -14,18 +14,15 @@ class VKSecondaryTitleLabel: UILabel {
         setup()
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     init(fontSize: CGFloat) {
         super.init(frame: .zero)
         font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
         setup()
     }
-    
     
     private func setup() {
         textColor                   = .secondaryLabel
