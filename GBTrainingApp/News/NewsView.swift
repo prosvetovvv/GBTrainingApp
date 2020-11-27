@@ -11,27 +11,26 @@ class NewsView: UIView {
     
     let tableView = UITableView()
     
-
     init() {
         super.init(frame: .zero)
-        setup()
+        setupSelf()
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    private func setup() {
-        addSubview(tableView)
-        
-        tableView.rowHeight = 300
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
+    private func setupSelf() {
+        setupTableView()
         setNeedsUpdateConstraints()
     }
     
+    private func setupTableView() {
+        tableView.rowHeight          = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 1.0
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(tableView)
+    }
     
     override func updateConstraints() {
         super.updateConstraints()

@@ -16,7 +16,6 @@ class TabBarController: UITabBarController {
         viewControllers = [createFriendsNC(), createGroupsNC(), createNewsNC()]
     }
     
-    
     func createFriendsNC() -> UINavigationController {
         let friendsVC = FriendsVC()
         friendsVC.title = "Friends"
@@ -25,7 +24,6 @@ class TabBarController: UITabBarController {
         return UINavigationController(rootViewController: friendsVC)
     }
     
-    
     func createGroupsNC() -> UINavigationController {
         let groupsVC = GroupsVC()
         groupsVC.title = "Groups"
@@ -33,7 +31,6 @@ class TabBarController: UITabBarController {
         
         return UINavigationController(rootViewController: groupsVC)
     }
-    
     
     func createNewsNC() -> UINavigationController {
         let newsVC = NewsVC()

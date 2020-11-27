@@ -16,18 +16,15 @@ class VKItemInfoView: UIView {
     let symbolImageView = UIImageView()
     let countLabel      = VKTitleLabel(textAlignment: .left, fontSize: 14)
     
-    
     init(symbol: SFSymbols) {
         super.init(frame: .zero)
         symbolImageView.image = UIImage(systemName: symbol.rawValue)
         setup()
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     private func setup() {
         addSubview(symbolImageView)
@@ -39,7 +36,6 @@ class VKItemInfoView: UIView {
         
         needsUpdateConstraints()
     }
-    
     
     override func updateConstraints() {
         super.updateConstraints()

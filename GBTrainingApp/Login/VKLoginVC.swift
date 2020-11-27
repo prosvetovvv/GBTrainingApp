@@ -18,12 +18,10 @@ class VKLoginVC: UIViewController {
         view = rootView
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setRootViewDelegate()
     }
-    
     
     func setRootViewDelegate() {
         rootView.navigationDelegate = self

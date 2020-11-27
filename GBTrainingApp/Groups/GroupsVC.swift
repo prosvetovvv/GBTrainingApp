@@ -16,7 +16,6 @@ class GroupsVC: UIViewController {
     let groupService        = GroupsService()
     let groupServiceStore   = GroupsServiceStore()
     
-    
     // MARK: - Life Cycle
     
     override func loadView() {
@@ -25,7 +24,6 @@ class GroupsVC: UIViewController {
         view = rootView
     }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSelf()
@@ -35,14 +33,12 @@ class GroupsVC: UIViewController {
 
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.backgroundColor     = .clear
         navigationController?.navigationBar.prefersLargeTitles  = true
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    
     
     // MARK: - Settings
     
@@ -56,7 +52,6 @@ class GroupsVC: UIViewController {
         rootView.tableView.register(GroupCell.self, forCellReuseIdentifier: GroupCell.id)
         rootView.tableView.dataSource = self
     }
-    
     
     // MARK: - Core Data
     
@@ -76,7 +71,6 @@ class GroupsVC: UIViewController {
         }
     }
     
-    
     // MARK: - Network
     
     private func getGroupsFromNetwork() {
@@ -94,7 +88,6 @@ class GroupsVC: UIViewController {
 
 }
 
-
 // MARK: - Extensions
 
 extension GroupsVC: UITableViewDataSource {
@@ -111,7 +104,6 @@ extension GroupsVC: UITableViewDataSource {
         return cell
     }
 }
-
 
 extension GroupsVC: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {

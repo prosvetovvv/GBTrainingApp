@@ -26,7 +26,7 @@ extension News {
     @NSManaged public var show: Int64
     @NSManaged public var sourceId: Int64
     @NSManaged public var text: String?
-    @NSManaged public var photos: [String]?
+    @NSManaged public var photos: [String]
 
 }
 

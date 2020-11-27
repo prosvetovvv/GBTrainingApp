@@ -17,13 +17,11 @@ class NewsVC: UIViewController {
     let friendsServiceStore = FriendsServiceStore()
     let newsServiceStore = NewsServiceStore()
     
-    
     override func loadView() {
         super.loadView()
         
         view = rootView
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +38,6 @@ class NewsVC: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    
     // MARK: - Settings
     
     private func setupSelf() {
@@ -48,13 +45,11 @@ class NewsVC: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    
     private func setupTableView() {
         rootView.tableView.register(NewCell.self, forCellReuseIdentifier: NewCell.id)
         rootView.tableView.register(TextAndImageCell.self, forCellReuseIdentifier: TextAndImageCell.id)
         rootView.tableView.dataSource = self
     }
-    
     
     // MARK: - CoreData
     
@@ -93,7 +88,6 @@ class NewsVC: UIViewController {
     
 }
 
-
 // MARK: - Extensions
 
 extension NewsVC: UITableViewDataSource {
@@ -105,21 +99,17 @@ extension NewsVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let new = fetchedNewsRC.object(at: indexPath)
         
-        if new.image != nil {
+        if !new.photos.isEmpty {
             let cell = tableView.dequeueReusableCell(withIdentifier: TextAndImageCell.id, for: indexPath) as! TextAndImageCell
-            let friendId = new.sourceId
-            let friend = friendsServiceStore.getFriend(by: friendId)
-            cell.set(new: new, by: friend)
+            cell.set(new: new)
             
             return cell
         }
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: NewCell.id, for: indexPath) as! NewCell
-            let friendId = new.sourceId
-            let friend = friendsServiceStore.getFriend(by: friendId)
-            cell.set(new: new, by: friend)
-
-            return cell
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: NewCell.id, for: indexPath) as! NewCell
+        cell.set(new: new)
+        
+        return cell
     }
 }
 

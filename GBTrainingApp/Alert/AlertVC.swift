@@ -13,7 +13,6 @@ class AlertVC: UIViewController {
     var message: String?
     var buttonTitle: String?
     
-    
     init(title: String, message: String, buttonTitle: String) {
         self.alertTitle     = title
         self.message        = message
@@ -21,11 +20,9 @@ class AlertVC: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func loadView() {
         super.loadView()
@@ -36,11 +33,9 @@ class AlertVC: UIViewController {
         rootView.actionButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
     
     @objc
     private func dismissVC() {

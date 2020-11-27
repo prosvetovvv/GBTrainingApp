@@ -7,11 +7,9 @@
 
 import Foundation
 
-
 struct NewsResponse: Codable {
     let response: NewsResponseStruct
 }
-
 
 struct NewsResponseStruct: Codable {
     let items: [New]
@@ -24,7 +22,6 @@ struct NewsResponseStruct: Codable {
         case nextFrom = "next_from"
     }
 }
-
 
 struct New: Codable {
     let sourceId: Int64
@@ -42,7 +39,6 @@ struct New: Codable {
     }
 }
 
-
 struct Comments: Codable {
     let count: Int64
     
@@ -50,7 +46,6 @@ struct Comments: Codable {
         case count
     }
 }
-
 
 struct Likes: Codable {
     let count: Int64
@@ -60,11 +55,9 @@ struct Likes: Codable {
     }
 }
 
-
 struct Views: Codable {
     let count: Int64
 }
-
 
 struct Reposts: Codable {
     let count: Int64
@@ -74,11 +67,10 @@ struct Reposts: Codable {
     }
 }
 
-
 struct ItemAttachment: Codable {
+    let type: String
     let photo: PhotoItem?
 }
-
 
 struct Profile: Codable {
     let firstName: String

@@ -224,13 +224,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		E1052FAB2551359000D39978 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		E10B48E42546B0A9008C1D4A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,47 +235,24 @@
 		E10B48ED2546B9E5008C1D4A /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				E10B48F22546BB50008C1D4A /* Custom Views */,
-				E10B48F12546BB3D008C1D4A /* Views */,
-				E10B48F32546BB71008C1D4A /* Controllers */,
-			);
-			path = Login;
-			sourceTree = "<group>";
-		};
-		E10B48F12546BB3D008C1D4A /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				E161046D254029D2009B3F9E /* LoginView.swift */,
-				E1D3D316252F0A25002EF01E /* VKLoginView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		E10B48F22546BB50008C1D4A /* Custom Views */ = {
-			isa = PBXGroup;
-			children = (
-				E161049F2541C202009B3F9E /* VKScrollView.swift */,
-			);
-			path = "Custom Views";
-			sourceTree = "<group>";
-		};
-		E10B48F32546BB71008C1D4A /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
 				E16104882540682E009B3F9E /* LoginVC.swift */,
 				E1D3D304252F09EA002EF01E /* VKLoginVC.swift */,
+				E161046D254029D2009B3F9E /* LoginView.swift */,
+				E1D3D316252F0A25002EF01E /* VKLoginView.swift */,
+				E161049F2541C202009B3F9E /* VKScrollView.swift */,
 			);
-			path = Controllers;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		E10B48F72546BCBD008C1D4A /* Friends */ = {
 			isa = PBXGroup;
 			children = (
-				E1D3D314252F0A25002EF01E /* Views */,
+				E1D3D30A252F0A14002EF01E /* FriendsVC.swift */,
+				E160CA9825499730009EBAEA /* FriendInfoVC.swift */,
+				E1D3D315252F0A25002EF01E /* FriendsView.swift */,
+				E160CA9F254AAE93009EBAEA /* FriendInfoView.swift */,
+				E1D3D32C252F0A4A002EF01E /* FriendCell.swift */,
 				E10B48F82546BCF6008C1D4A /* Custom Views */,
-				E10B48F92546BD14008C1D4A /* Controllers */,
-				E1D3D32B252F0A4A002EF01E /* Cells */,
-				E1D3D335252F0A5C002EF01E /* Models */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -293,15 +263,6 @@
 				E1D3D32E252F0A4A002EF01E /* VKAvatarImageView.swift */,
 			);
 			path = "Custom Views";
-			sourceTree = "<group>";
-		};
-		E10B48F92546BD14008C1D4A /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				E1D3D30A252F0A14002EF01E /* FriendsVC.swift */,
-				E160CA9825499730009EBAEA /* FriendInfoVC.swift */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		E10B48FA2546BD6F008C1D4A /* Navigation */ = {
@@ -321,12 +282,21 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
+		E152B8272570DC27005633CA /* Info Bar */ = {
+			isa = PBXGroup;
+			children = (
+				E1A4FB71254FFE2B00FF62CE /* VKItemInfoView.swift */,
+				E1A4FB7725501A3B00FF62CE /* VKItemInfoBar.swift */,
+			);
+			path = "Info Bar";
+			sourceTree = "<group>";
+		};
 		E15A8C2825645CA70076D529 /* Groups */ = {
 			isa = PBXGroup;
 			children = (
-				E15A8C2925645D9A0076D529 /* GroupCell.swift */,
-				E177F5E32565037000C100EC /* GroupsView.swift */,
 				E177F5F025652B3C00C100EC /* GroupsVC.swift */,
+				E177F5E32565037000C100EC /* GroupsView.swift */,
+				E15A8C2925645D9A0076D529 /* GroupCell.swift */,
 			);
 			path = Groups;
 			sourceTree = "<group>";
@@ -375,38 +345,14 @@
 		E1A4FB5E254FDD4200FF62CE /* News */ = {
 			isa = PBXGroup;
 			children = (
-				E1A4FB66254FE1C300FF62CE /* Cells */,
-				E1A4FB60254FDE0700FF62CE /* Views */,
-				E1A4FB5F254FDD6A00FF62CE /* Controllers */,
-				E1052FAB2551359000D39978 /* Models */,
+				E1D3D30C252F0A14002EF01E /* NewsVC.swift */,
+				E1A4FB61254FDE5700FF62CE /* NewsView.swift */,
+				E1F6BB3A255DD45100EEC0FC /* TextAndImageCell.swift */,
+				E1A4FB67254FE22700FF62CE /* NewCell.swift */,
+				E153453925549FD8005BBFB2 /* VKNewBodyLabel.swift */,
+				E152B8272570DC27005633CA /* Info Bar */,
 			);
 			path = News;
-			sourceTree = "<group>";
-		};
-		E1A4FB5F254FDD6A00FF62CE /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				E1D3D30C252F0A14002EF01E /* NewsVC.swift */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		E1A4FB60254FDE0700FF62CE /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				E1A4FB61254FDE5700FF62CE /* NewsView.swift */,
-				E153453925549FD8005BBFB2 /* VKNewBodyLabel.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		E1A4FB66254FE1C300FF62CE /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				E1A4FB67254FE22700FF62CE /* NewCell.swift */,
-				E1F6BB3A255DD45100EEC0FC /* TextAndImageCell.swift */,
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 		E1D3D2B4252F07C8002EF01E = {
@@ -447,7 +393,6 @@
 				E1D3D32A252F0A4A002EF01E /* Custom Views */,
 				E1D3D322252F0A43002EF01E /* Utilities */,
 				E1D3D31C252F0A3B002EF01E /* Services */,
-				E1D3D303252F096F002EF01E /* Controllers */,
 				E1D3D2FC252F0939002EF01E /* Support */,
 			);
 			path = GBTrainingApp;
@@ -484,22 +429,6 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
-		E1D3D303252F096F002EF01E /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		E1D3D314252F0A25002EF01E /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				E1D3D315252F0A25002EF01E /* FriendsView.swift */,
-				E160CA9F254AAE93009EBAEA /* FriendInfoView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		E1D3D31C252F0A3B002EF01E /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -528,25 +457,8 @@
 				E1BFADCD2543634B000F1EB6 /* VKBodyLabel.swift */,
 				E160CA512546F03F009EBAEA /* VKSecondaryTitleLabel.swift */,
 				E12E979F254B54EE008B1DD4 /* VKSymbolImageView.swift */,
-				E1A4FB71254FFE2B00FF62CE /* VKItemInfoView.swift */,
-				E1A4FB7725501A3B00FF62CE /* VKItemInfoBar.swift */,
 			);
 			path = "Custom Views";
-			sourceTree = "<group>";
-		};
-		E1D3D32B252F0A4A002EF01E /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				E1D3D32C252F0A4A002EF01E /* FriendCell.swift */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		E1D3D335252F0A5C002EF01E /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		E1D3D341252F24CC002EF01E /* DB */ = {

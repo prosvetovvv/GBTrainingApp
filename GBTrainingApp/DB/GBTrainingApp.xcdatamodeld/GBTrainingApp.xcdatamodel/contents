@@ -20,7 +20,7 @@
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="likes" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="photos" optional="YES" attributeType="Transformable" customClassName="[String]"/>
+        <attribute name="photos" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="[String]"/>
         <attribute name="reposts" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="show" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sourceId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

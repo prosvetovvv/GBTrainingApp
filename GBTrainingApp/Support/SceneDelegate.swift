@@ -20,8 +20,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = VKLoginVC()
         //window?.rootViewController = LoginVC()
         window?.makeKeyAndVisible()
+        
+        CoreDataStack.shared.applicationDocumentsDirectory()
     }
-
+    
     func sceneDidDisconnect(_ scene: UIScene) {
 
     }
