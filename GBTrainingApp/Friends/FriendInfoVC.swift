@@ -8,7 +8,7 @@
 import UIKit
 
 class FriendInfoVC: UIViewController {
-        
+    
     let rootView = FriendInfoView()
     
     var friend: MyFriend!
@@ -26,9 +26,7 @@ class FriendInfoVC: UIViewController {
         super.viewDidLoad()
         setupViewController()
         setup()
-        
         getPhotoFromNetwork(for: String(friend.id))
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,12 +35,9 @@ class FriendInfoVC: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles  = false
     }
     
-    
     private func setupViewController() {
         view.backgroundColor = .systemBackground
-        
     }
-    
     
     private func setup() {
         photoService.downloadPhoto(from: friend.avatarUrl, to: rootView.avatarImageView)
@@ -50,7 +45,6 @@ class FriendInfoVC: UIViewController {
         rootView.birthDateLabel.text      = friend.birthDate ?? ""
         rootView.cityLabel.text           = friend.city
     }
-    
     
     private func getPhotoFromNetwork(for friend: String) {
         
@@ -64,13 +58,12 @@ class FriendInfoVC: UIViewController {
                 print(photos.count)
                 print(self.photosMaxSize)
                 
-
+                
             case .failure(let error):
                 print(error.rawValue)
             }
         }
     }
-    
     
     private func getPhotosMaxSize(from allPhotos: PhotosResponseStruct) {
         for photos in allPhotos.items {
@@ -78,5 +71,4 @@ class FriendInfoVC: UIViewController {
             photosMaxSize.append(photos.sizes[i - 1].url)
         }
     }
-    
 }
