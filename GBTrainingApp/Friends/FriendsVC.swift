@@ -146,9 +146,11 @@ extension FriendsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let friend = fetchedResultsController.fetchedObjects?[indexPath.row] else{ return }
         
-        let destVC = FriendInfoVC()
+        //let destVC = FriendInfoVC()
+        let destVC = PhotosCollectionVC()
         destVC.modalPresentationStyle = .fullScreen
         destVC.friend = friend
+        //navigationController?.pushViewController(destVC, animated: true)
         navigationController?.pushViewController(destVC, animated: true)
     }
 }
