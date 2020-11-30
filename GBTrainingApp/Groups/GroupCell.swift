@@ -10,11 +10,11 @@ import UIKit
 class GroupCell: UITableViewCell {
     
     static let id = "GroupCell"
-    let photoService = PhotoService()
+    let photoService = PhotoNetworkService()
     
     let avatarImageView = VKAvatarImageView(frame: .zero)
     let nameTitleLabel  = VKTitleLabel(textAlignment: .left, fontSize: 22)
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -47,10 +47,7 @@ class GroupCell: UITableViewCell {
     }
     
     func set(with group: Groups) {
-        DispatchQueue.main.async {
-            self.photoService.downloadPhoto(from: group.avatarUrl, to: self.avatarImageView)
-            self.nameTitleLabel.text = group.name
-        }
+        self.photoService.downloadPhoto(from: group.avatarUrl, to: self.avatarImageView)
+        self.nameTitleLabel.text = group.name
     }
-
 }

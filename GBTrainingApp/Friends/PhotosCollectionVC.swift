@@ -7,14 +7,12 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
-
 class PhotosCollectionVC: UICollectionViewController {
     
     var friend: MyFriend?
     var photos = [String]()
-    let photoService = PhotoService()
-    let friendsService  = FriendsService()
+    let photoNetworkService = PhotoNetworkService()
+    let friendsNetworkService  = FriendsNetworkService()
     
     var layout: UICollectionViewFlowLayout {
         let _layout = UICollectionViewFlowLayout()
@@ -47,19 +45,15 @@ class PhotosCollectionVC: UICollectionViewController {
     
     private func getPhotoFromNetwork(for friend: String) {
         
-        friendsService.getPhotos(for: friend) { [ weak self ] result in
+        friendsNetworkService.getPhotos(for: friend) { [ weak self ] result in
             guard let self = self else { return }
             
             switch result {
             
             case .success(let photos):
                 self.getPhotosMaxSize(from: photos)
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-                debugPrint(photos.count)
-                debugPrint(self.photos)
-            
+                DispatchQueue.main.async { self.collectionView.reloadData() }
+                
             case .failure(let error):
                 print(error.rawValue)
             }
@@ -96,5 +90,4 @@ extension PhotosCollectionVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: view.frame.height)
     }
-    
 }

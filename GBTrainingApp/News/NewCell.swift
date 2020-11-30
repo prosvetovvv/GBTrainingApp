@@ -19,7 +19,7 @@ class NewCell: UITableViewCell {
     let containerView       = UIView()
     let itemInfoBar         = VKItemInfoBar()
     
-    let photoService    = PhotoService()
+    let photoService    = PhotoNetworkService()
     let convertDateService  = ConvertDateService()
     
     let avatarPlaceholder: UIImage = UIImage(named: "placeholder")!

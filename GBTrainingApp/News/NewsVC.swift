@@ -13,7 +13,7 @@ class NewsVC: UIViewController {
     
     let rootView = NewsView()
     var fetchedNewsRC: NSFetchedResultsController<News>!
-    let newsService = NewsService()
+    let newsService = NewsNetworkService()
     let friendsServiceStore = FriendsServiceStore()
     let newsServiceStore = NewsServiceStore()
     
@@ -63,12 +63,11 @@ class NewsVC: UIViewController {
         
         do {
             try fetchedNewsRC.performFetch()
-            print("Count fetched News: \(String(describing: fetchedNewsRC.sections?[0].numberOfObjects))")
+            print("Count fetched News: \(String(describing: fetchedNewsRC.sections?.first?.numberOfObjects))")
         } catch {
             print("Fetch failed")
         }
     }
-    
     
     // MARK: - Network
     
@@ -85,7 +84,6 @@ class NewsVC: UIViewController {
             }
         }
     }
-    
 }
 
 // MARK: - Extensions

@@ -14,9 +14,9 @@ class AlertVC: UIViewController {
     var buttonTitle: String?
     
     init(title: String, message: String, buttonTitle: String) {
-        self.alertTitle     = title
-        self.message        = message
-        self.buttonTitle    = buttonTitle
+        self.alertTitle   = title
+        self.message      = message
+        self.buttonTitle  = buttonTitle
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -27,7 +27,7 @@ class AlertVC: UIViewController {
     override func loadView() {
         super.loadView()
         let rootView = AlertView(title: alertTitle ?? "Что-то пошло не так", message: message ?? "Невозможно выполнить запрос", buttonTitle: buttonTitle ?? "Ok")
-        //let rootView = VKAlertView(title: alertTitle, message: message, buttonTitle: buttonTitle)
+    
         view = rootView
         
         rootView.actionButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)

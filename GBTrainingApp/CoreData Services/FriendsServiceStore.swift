@@ -48,8 +48,7 @@ struct FriendsServiceStore {
         privateContext.perform {
             do {
                 let objects = try privateContext.fetch(fetchRequest)
-                _ = objects.map{privateContext.delete($0)}
-                
+                objects.forEach { privateContext.delete($0) }
                 do {
                     try privateContext.save()
                     context.performAndWait {
@@ -61,19 +60,6 @@ struct FriendsServiceStore {
         }
     }
     
-    func getFriend(by friendId: Int64) -> MyFriend? {
-        let context = storeStack.context
-        let fetchRequest: NSFetchRequest<MyFriend> = MyFriend.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id == %i", friendId)
-        
-        do {
-            let fetchedResult = try context.fetch(fetchRequest)
-            guard !fetchedResult.isEmpty else { return nil }
-            return fetchedResult[0]
-        } catch { return nil }
-        
-    }
-    
     func savePhoto(userId: String, photoUrl: String) {
         let context = storeStack.context
         let photo = Photo(context: context)
@@ -83,17 +69,4 @@ struct FriendsServiceStore {
         
         storeStack.saveContext()
     }
-    
-    func readFriendList() -> [MyFriend] {
-        let context = storeStack.context
-        
-        return (try? context.fetch(MyFriend.fetchRequest()) as? [MyFriend]) ?? []
-    }
-    
-    func readPhotoList() -> [Photo] {
-        let context = storeStack.context
-        
-        return (try? context.fetch(Photo.fetchRequest()) as? [Photo]) ?? []
-    }
-    
 }

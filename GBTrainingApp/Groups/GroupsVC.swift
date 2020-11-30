@@ -13,7 +13,7 @@ class GroupsVC: UIViewController {
     var fetchedGroupsRC: NSFetchedResultsController<Groups>!
     var fetchedFriendRC: NSFetchedResultsController<Groups>!
     let rootView            = GroupsView()
-    let groupService        = GroupsService()
+    let groupService        = GroupsNetworkService()
     let groupServiceStore   = GroupsServiceStore()
     
     // MARK: - Life Cycle
@@ -30,7 +30,7 @@ class GroupsVC: UIViewController {
         setupTableView()
         setupFetchedGroupsRC()
         getGroupsFromNetwork()
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,7 +65,7 @@ class GroupsVC: UIViewController {
         
         do {
             try fetchedGroupsRC.performFetch().self
-            print("Count fetched groups: \(String(describing: fetchedGroupsRC.sections?[0].numberOfObjects))")
+            print("Count fetched groups: \(String(describing: fetchedGroupsRC.sections?.first?.numberOfObjects))")
         } catch {
             print("Fetch failed")
         }
@@ -85,7 +85,6 @@ class GroupsVC: UIViewController {
             }
         }
     }
-
 }
 
 // MARK: - Extensions

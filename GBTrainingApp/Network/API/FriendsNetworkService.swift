@@ -7,12 +7,11 @@
 
 import UIKit
 
-struct FriendsService {
+struct FriendsNetworkService {
     
     private let baseUrl = "https://api.vk.com/method"
     let token           = Session.shared.token
     let cache           = NSCache<NSString, UIImage>()
-    
     
     func getFriends(completed: @escaping (Result<[Friend], ErrorMessage>) -> Void) {
         let urlRequest = baseUrl + "/friends.get?fields=photo_200,city,bdate&access_token=\(token)&v=5.124"
@@ -51,10 +50,8 @@ struct FriendsService {
                 }
             }
         }
-        
         task.resume()
     }
-    
     
     func getPhotos(for friendId: String, completed: @escaping (Result<PhotosResponseStruct, ErrorMessage>) -> Void) {
         let urlRequest = baseUrl + "/photos.getAll?owner_id=\(friendId)&access_token=\(token)&v=5.124"
@@ -93,10 +90,8 @@ struct FriendsService {
                 }
             }
         }
-        
         task.resume()
     }
-    
     
     private func makeUrlComponentsForSearch(with query: String) -> URLComponents {
         var urlComponents = URLComponents()
