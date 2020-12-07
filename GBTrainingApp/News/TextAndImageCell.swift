@@ -24,7 +24,7 @@ class TextAndImageCell: UITableViewCell {
     let photosStackView     = UIStackView()
     let itemInfoBar         = VKItemInfoBar()
     
-    let photoService        = PhotoService()
+    let photoService        = PhotoNetworkService()
     let convertDateService  = ConvertDateService()
     
     let avatarPlaceholder: UIImage = UIImage(named: "placeholder")!

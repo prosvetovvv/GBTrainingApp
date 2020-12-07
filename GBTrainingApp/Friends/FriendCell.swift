@@ -11,12 +11,11 @@ import UIKit
 class FriendCell: UITableViewCell {
     
     static let id = "FriendCell"
-    let photoService    = PhotoService()
     
-    let avatarImageView = VKAvatarImageView(frame: .zero)
-    let nameTitleLabel  = VKTitleLabel(textAlignment: .left, fontSize: 22)
-    let cityTitleLabel  = VKSecondaryTitleLabel(fontSize: 17)
-    
+    let photoNetworkService = PhotoNetworkService()
+    let avatarImageView     = VKAvatarImageView(frame: .zero)
+    let nameTitleLabel      = VKTitleLabel(textAlignment: .left, fontSize: 22)
+    let cityTitleLabel      = VKSecondaryTitleLabel(fontSize: 17)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -27,10 +26,8 @@ class FriendCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func updateConstraints() {
         super.updateConstraints()
-        
         NSLayoutConstraint.activate([
             avatarImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
@@ -49,7 +46,6 @@ class FriendCell: UITableViewCell {
         ])
     }
     
-    
     private func setup() {
         addSubview(avatarImageView)
         addSubview(nameTitleLabel)
@@ -58,12 +54,9 @@ class FriendCell: UITableViewCell {
         setNeedsUpdateConstraints()
     }
     
-    
     func set(with friend: MyFriend) {
-        DispatchQueue.main.async {
-            self.photoService.downloadPhoto(from: friend.avatarUrl, to: self.avatarImageView)
-            self.nameTitleLabel.text = "\(friend.firstName) \(friend.lastName)"
-            self.cityTitleLabel.text = friend.city
-        }
+        self.photoNetworkService.downloadPhoto(from: friend.avatarUrl, to: self.avatarImageView)
+        self.nameTitleLabel.text = "\(friend.firstName) \(friend.lastName)"
+        self.cityTitleLabel.text = friend.city
     }
 }

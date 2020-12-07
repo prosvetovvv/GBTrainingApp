@@ -15,14 +15,12 @@ class FriendsVC: UIViewController {
     var currentSearchText = ""
     var fetchedResultsController: NSFetchedResultsController<MyFriend>!
     var dataSource: UITableViewDiffableDataSource<Int, MyFriend>!
-    let friendsService = FriendsService()
+    let friendsNetworkService = FriendsNetworkService()
     let friendsServiceStore = FriendsServiceStore()
-    
     
     override func loadView() {
         view = rootView
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +36,6 @@ class FriendsVC: UIViewController {
         updateTableContent()
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.backgroundColor     = .clear
@@ -53,7 +50,6 @@ class FriendsVC: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    
     private func setupSearchController() {
         let searchController                                    = UISearchController()
         searchController.searchResultsUpdater                   = self
@@ -61,7 +57,6 @@ class FriendsVC: UIViewController {
         searchController.obscuresBackgroundDuringPresentation   = false
         navigationItem.searchController                         = searchController
     }
-    
     
     private func setTableViewDelegate() {
         rootView.tableView.delegate = self
@@ -103,18 +98,15 @@ class FriendsVC: UIViewController {
         updateSnapshot()
     }
     
-    
     private func updateTableContent() {
         do {
             try fetchedResultsController.performFetch()
-            print("Count fetched: \(String(describing: fetchedResultsController.sections?[0].numberOfObjects))")
+            debugPrint("Count fetched: \(String(describing: fetchedResultsController.sections?[0].numberOfObjects))")
         } catch let error as NSError {
-            print("Fetching error: \(error), \(error.userInfo)")
+            debugPrint("Fetching error: \(error), \(error.userInfo)")
         }
-        
         getFriendsFromNetwork()
     }
-    
     
     private func updateSnapshot() {
         var dataSourceSnapshot = NSDiffableDataSourceSnapshot<Int, MyFriend>()
@@ -126,16 +118,22 @@ class FriendsVC: UIViewController {
     //MARK: - Network
     
     private func getFriendsFromNetwork() {
-        friendsService.getFriends() { [ unowned self ] result in
+        friendsNetworkService.getFriends() { [ unowned self ] result in
             switch result {
             
             case .success(let friends):
-                self.friendsServiceStore.clearFriends()
-                self.friendsServiceStore.saveFriends(from: friends)
+                updateDB(from: friends)
+                
             case .failure(let error):
-                print(error.rawValue)
+                debugPrint(error.rawValue)
+                self.presentAlertOnMainThread(title: "Ошибка", message: error.rawValue, buttonTitle: "Ok")
             }
         }
+    }
+    
+    private func updateDB(from friends: [Friend]) {
+        self.friendsServiceStore.clearFriends()
+        self.friendsServiceStore.saveFriends(from: friends)
     }
 }
 
@@ -146,22 +144,18 @@ extension FriendsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let friend = fetchedResultsController.fetchedObjects?[indexPath.row] else{ return }
         
-        //let destVC = FriendInfoVC()
         let destVC = PhotosCollectionVC()
         destVC.modalPresentationStyle = .fullScreen
         destVC.friend = friend
-        //navigationController?.pushViewController(destVC, animated: true)
         navigationController?.pushViewController(destVC, animated: true)
     }
 }
-
 
 extension FriendsVC: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         updateSnapshot()
     }
 }
-
 
 extension FriendsVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
@@ -170,8 +164,3 @@ extension FriendsVC: UISearchResultsUpdating {
         setupFetchedResultController()
     }
 }
-
-
-
-
-

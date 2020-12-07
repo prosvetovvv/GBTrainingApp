@@ -44,7 +44,7 @@ struct GroupsServiceStore {
         privateContext.perform {
             do {
                 let objects = try privateContext.fetch(fetchRequest)
-                _ = objects.map{privateContext.delete($0)}
+                objects.forEach { privateContext.delete($0) }
                 
                 do {
                     try privateContext.save()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct PhotoService {
+struct PhotoNetworkService {
     
     let cache = NSCache<NSString, UIImage>()
     

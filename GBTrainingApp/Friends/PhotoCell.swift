@@ -12,7 +12,7 @@ class PhotoCell: UICollectionViewCell {
     static let id = "PhotoCell"
     
     let photoImageView = UIImageView()
-    let photoService   = PhotoService()
+    let photoNetworkService   = PhotoNetworkService()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +32,7 @@ class PhotoCell: UICollectionViewCell {
     }
     
     func set(with photoUrl: String) {
-        photoService.downloadPhoto(from: photoUrl, to: photoImageView)
+        photoNetworkService.downloadPhoto(from: photoUrl, to: photoImageView)
     }
     
     override func updateConstraints() {
@@ -44,5 +44,4 @@ class PhotoCell: UICollectionViewCell {
         ])
         super.updateConstraints()
     }
-    
 }

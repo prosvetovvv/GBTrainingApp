@@ -32,7 +32,7 @@ class NewsServiceStore {
                     news.name       = self.getFriendName(by: new.sourceId, from: newsResponse.profiles)
                     news.avatarUrl  = self.getFriendAvatarUrl(by: new.sourceId, from: newsResponse.profiles)
                 }
-            
+                
                 if let attachments = new.attachments {
                     news.photos = self.getPhoto(from: attachments)
                 } else {
@@ -67,7 +67,7 @@ class NewsServiceStore {
         privateContext.perform {
             do {
                 let objects = try privateContext.fetch(fetchRequest)
-                _ = objects.map{privateContext.delete($0)}
+                objects.forEach { privateContext.delete($0) }
                 
                 do {
                     try privateContext.save()
@@ -88,7 +88,7 @@ class NewsServiceStore {
                 resultArray.append(photo)
             }
         }
-       return resultArray
+        return resultArray
     }
     
     private func getFriendName(by sourceId: Int64, from profiles: [Profile]) -> String? {
@@ -130,6 +130,5 @@ class NewsServiceStore {
         }
         return nil
     }
-    
 }
 
